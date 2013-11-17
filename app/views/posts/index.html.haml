@@ -1,0 +1,14 @@
+%h1 Posts
+
+%table
+	%thead
+		%tr
+		%th Date
+		%th Title
+		%th Content
+	%tbody
+		- @posts.each do |post|
+			%tr
+				%td= post.created_on
+				%td= post.title
+				%td= post.content
