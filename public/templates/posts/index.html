@@ -1,4 +1,8 @@
-<div ng-repeat="post in posts" ng-controller="PostViewCtrl" ng-click="expandPost()">
-   <h1>{{post.title}}</h1>
-   <div>{{post.content}}</div>
-</div>
+<accordion close-others="true">
+   <accordion-group ng-repeat="post in posts" ng-click="expandPost()">
+      <accordion-heading>
+         {{post.title}}
+      </accordion-heading>
+      <div ng-controller="PostViewCtrl">{{post.content}}</div>
+   </accordion-group>
+</accordion>

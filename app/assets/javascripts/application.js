@@ -17,6 +17,7 @@
 //
 // 3rd party Angular modules
 //= require angular-ui-router
+//= require ui-bootstrap-tpls-0.6.0
 //
 //= require_tree ./angular
 //= require app
