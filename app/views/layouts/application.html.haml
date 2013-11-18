@@ -12,8 +12,8 @@
 		= csrf_meta_tags
 
 %body
-	%header.navbar.navbar-inverse
-		.container
-			.navbar-header
-				%a.navbar-brand(href="/#/") SaaS Final
+	.navbar.navbar-inverse.navbar-fixed-top
+		.navbar-inner
+			.container
+				%a.brand(href="/#/") SaaS Final
 	= yield

@@ -1,7 +1,7 @@
 default_users = [
-  {:id => 0, :google_id => 5555555, :is_admin => 0,
+  {:id => 0, :linkedin_id => 5555555, :is_admin => 0,
     :name => 'John P', :email => 'john.professor@example.com'},
-  {:id => 1, :google_id => 55555555, :is_admin => 0,
+  {:id => 1, :linkedin_id => 55555555, :is_admin => 0,
     :name => 'Joe Developer', :email => 'joe.developer@example.com'}
 ]
 
