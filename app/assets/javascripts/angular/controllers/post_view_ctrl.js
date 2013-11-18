@@ -1,1 +1,3 @@
-function PostViewCtrl() {}
+function PostViewCtrl($scope) {
+   $scope.postCollapsed = true;
+}
