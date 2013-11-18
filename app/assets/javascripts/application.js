@@ -11,12 +11,12 @@
 // about supported directives.
 //
 // Angular includes jquery
-// //= require jquery
-// //= require jquery_ujs
-// //= require turbolinks
+//  require jquery
+//  require jquery_ujs
+//  require turbolinks
 //
 // 3rd party Angular modules
 //= require angular-ui-router
 //
-//= require app
 //= require_tree ./angular
+//= require app
