@@ -3,10 +3,15 @@
 	%head
 		%title Saasfinal
 		= stylesheet_link_tag "application", media: "all"
+		%link(rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootswatch/3.0.1/cerulean/bootstrap.min.css")
 		%script(type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.js")
 		%script(type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular-resource.js")
 		= javascript_include_tag "application"
 		= csrf_meta_tags
 
 %body
+	%header.navbar.navbar-inverse
+		.container
+			.navbar-header
+				%a.navbar-brand(href="/#/") SaaS Final
 	= yield
