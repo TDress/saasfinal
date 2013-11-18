@@ -17,3 +17,7 @@
 
 # Ignore application dependencies
 vendor/ruby
+
+# Ignore IntelliJ project files
+*.iml
+/.idea
