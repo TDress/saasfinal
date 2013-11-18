@@ -15,5 +15,8 @@
 // //= require jquery_ujs
 // //= require turbolinks
 //
+// 3rd party Angular modules
+//= require angular-ui-router
+//
 //= require app
 //= require_tree ./angular
