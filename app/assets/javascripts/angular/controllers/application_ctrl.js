@@ -1,8 +1,8 @@
-function ApplicationCtrl($scope, $cookieStore) {
-   $scope.welcomeBannerDismissed = $cookieStore.get('welcomeBannerDismissed');
+function ApplicationCtrl($scope, CookieStore) {
+   $scope.welcomeBannerDismissed = CookieStore.get('welcomeBannerDismissed');
 
    $scope.closeWelcomeBanner = function() {
       $scope.welcomeBannerDismissed = true;
-      $cookieStore.put('welcomeBannerDismissed', $scope.welcomeBannerDismissed);
+      CookieStore.put('welcomeBannerDismissed', $scope.welcomeBannerDismissed, new Date(9999999999999));
    }
 }
