@@ -1,5 +1,5 @@
 angular.module('saasfinal', ['ui.router', 'ui.bootstrap', 'ngResource', 'saasfinal.post'])
-   .config(function($stateProvider, $urlRouterProvider){
+   .config(function($stateProvider, $urlRouterProvider, $httpProvider){
       $urlRouterProvider.otherwise("/");
       $stateProvider
          .state('index', {
