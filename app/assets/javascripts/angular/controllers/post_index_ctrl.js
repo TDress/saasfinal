@@ -69,26 +69,26 @@ function PostIndexCtrl($scope, Post) {
             createdAfter: secondsAgo(31557600)
          }
       }
-   ]
-   $scope.timeMode = $scope.timeModes[0]
+   ];
+   $scope.timeMode = $scope.timeModes[0];
 
    // Search parameters that can be sent as the user inputs them (not sorts and dates)
    $scope.simpleParams = {
       keywords: ""
-   }
+   };
 
-   function refreshPosts() {
+   var refreshPosts = function() {
       // Copy all search parameters into one object to query server
       searchParams = $.extend({}, $scope.timeMode.params, $scope.sortMode.params, $scope.simpleParams)
 
       $scope.posts = Post.query(searchParams);
-   }
+   };
 
    // Load initial posts
    refreshPosts()
 
    $scope.$watch('timeMode', refreshPosts)
-   $scope.$watch('simpleParams', refreshPosts, true)
+   $scope.$watch('simpleParams', ratelimit(refreshPosts), true)
    $scope.$watch('sortMode', refreshPosts)
 
 
