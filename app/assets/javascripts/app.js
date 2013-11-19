@@ -1,4 +1,4 @@
-angular.module('saasfinal', ['ui.router', 'ui.bootstrap', 'ngResource', 'saasfinal.post'])
+angular.module('saasfinal', ['ui.router', 'ui.bootstrap', 'ngCookies', 'ngResource', 'saasfinal.post'])
    .config(function($stateProvider, $urlRouterProvider, $httpProvider){
       $urlRouterProvider.otherwise("/");
       $stateProvider
