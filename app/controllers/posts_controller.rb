@@ -2,6 +2,15 @@ class PostsController < ApplicationController
 
   respond_to :json, :html
 
+  #
+  # Query posts, optionally including search criteria
+  #
+  # ===== Parameters
+  # * +orderBy+ - Column or field name to sort results by.
+  # * +orderAsc+ - If included, results are sorted in ascending order, otherwise descending order is used.
+  # * +createdAfter+ - Return posts created after this time. Specified in milliseconds since the epoch.
+  # * +keywords+ - String of search keywords
+  #
   def index
     @posts = Post.includes(:user)
 
