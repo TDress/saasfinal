@@ -17,7 +17,7 @@ require 'rdoc/task'
 
 RDoc::Task.new do |rdoc|
   rdoc.main = "README.rdoc"
-  rdoc.rdoc_files.include("README.rdoc", "lib/**/*.rb")
+  rdoc.rdoc_files.include("README.rdoc", 'app/*')
 end
 
 # Use sqlite3 as the database for Active Record
