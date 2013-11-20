@@ -5,6 +5,9 @@ gem 'rails', '4.0.0'
 
 gem 'haml'
 
+gem 'rdoc'
+require 'rdoc/task'
+
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
