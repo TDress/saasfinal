@@ -5,6 +5,21 @@ gem 'rails', '4.0.0'
 
 gem 'haml'
 
+gem 'rdoc'
+require 'rdoc/task'
+
+# Create rake tasks for rdoc
+# Possilbe tasks:
+# rdoc- Main task for this RDoc task.
+# clobber_rdoc- Delete all the rdoc files. This target is automatically added to the main clobber target.
+# rerdoc- Rebuild the rdoc files from scratch, even if they are not out of date.
+
+
+RDoc::Task.new do |rdoc|
+  rdoc.main = "README.rdoc"
+  rdoc.rdoc_files.include("README.rdoc", "lib/**/*.rb")
+end
+
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
