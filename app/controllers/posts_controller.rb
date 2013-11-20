@@ -8,7 +8,7 @@ class PostsController < ApplicationController
   # ===== Parameters
   # * +orderBy+ - Column or field name to sort results by.
   # * +orderAsc+ - If included, results are sorted in ascending order, otherwise descending order is used.
-  # * +createdAfter+ - Return posts created after this time. Specified in milliseconds since the epoch.
+  # * +createdAfter+ - Return posts created after this time. Specified in seconds since the epoch.
   # * +keywords+ - String of search keywords
   #
   def index
@@ -19,7 +19,8 @@ class PostsController < ApplicationController
     end
 
     if params.key? :createdAfter
-      @posts.where("created_on > ?", params[:createdAfter])
+      time = Time.at(params[:createdAfter].to_i)
+      @posts = @posts.where("created_on > ?", time)
     end
 
     if params.key? :keywords and params[:keywords].length > 0

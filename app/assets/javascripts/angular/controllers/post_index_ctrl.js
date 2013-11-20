@@ -1,11 +1,11 @@
 /**
  * Create a function that returns a time from fixed number of seconds in the past
  * @param sec Seconds to subtract from the current time when called
- * @returns {Function} Function that returns a time sec seconds in the past
+ * @returns {Function} Function which returns a time sec seconds in the past
  */
 function secondsAgo(sec) {
    return function() {
-      return Date.now() - 1000*sec;
+      return Date.now()/1000 - sec;
    }
 }
 

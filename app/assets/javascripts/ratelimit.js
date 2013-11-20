@@ -9,17 +9,6 @@ function ratelimit(fn, delay) {
    delay = delay || 300;
 
    var delayTimer = null;
-   var queuedCall = null;
-
-   // Call the queued function if it exists
-   function doCall() {
-      delayTimer = null;
-
-      if (queuedCall) {
-         queuedCall();
-         queuedCall = null;
-      }
-   }
 
    return function() {
       var args = arguments;
@@ -32,6 +21,6 @@ function ratelimit(fn, delay) {
          window.clearTimeout(delayTimer);
       }
 
-      delayTimer = window.setTimeout(doCall, delay);
+      delayTimer = window.setTimeout(queuedCall, delay);
    };
 }
