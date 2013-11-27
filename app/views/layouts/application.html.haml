@@ -2,9 +2,9 @@
 %html(ng-app="saasfinal")
 	%head
 		%title Saasfinal
-		= stylesheet_link_tag "application", media: "all"
 		%link(rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootswatch/2.3.2/cerulean/bootstrap.min.css")
 		%link(rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css")
+		= stylesheet_link_tag "application", media: "all"
 		%script(type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")
 		%script(type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.js")
 		%script(type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular-resource.js")
@@ -13,7 +13,7 @@
 		= csrf_meta_tags
 
 %body(ng-controller="ApplicationCtrl")
-	.navbar.navbar-inverse.navbar-fixed-top
+	.navbar.navbar-inverse
 		.navbar-inner
 			.container
 				%a.brand(href="/#/") SaaS Final
