@@ -25,5 +25,3 @@ angular.module('saasfinal.cookies', [])
          }
       }
    })
-
-CookieStore.set('meCookie', 'value', new Date())
