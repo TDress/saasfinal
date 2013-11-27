@@ -24,7 +24,7 @@ class PostsController < ApplicationController
     end
 
     if params.key? :keywords and params[:keywords].length > 0
-      @posts = @posts.where("title like ?", "%" + params[:keywords] + "%")
+      @posts = @posts.where("lower(title) like lower(?)", "%" + params[:keywords] + "%")
     end
 
     respond_with @posts do |format|
