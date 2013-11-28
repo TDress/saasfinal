@@ -7,13 +7,14 @@ angular.module('saasfinal.toolbar', [])
    .directive('navbarDynamicTop', function() {
       return {
          restrict: 'C',
-         link: function(scope, element, attrs) {
-            console.log("!!!!", element)
+         scope: false,
+         compile: function(element, attrs) {
             var fixedClass = 'navbar-fixed-top';
             var placeholder = $('<div>');
 
-            element.replaceWith(placeholder);
-            placeholder.append(element);
+            element
+               .replaceWith(placeholder)
+               .appendTo(placeholder);
 
             if (element.hasClass(fixedClass)) {
                console.log("Warning: navbar-dynamic-top should not be used on fixed position elements, but", element, "has class", fixedClass);
@@ -22,9 +23,9 @@ angular.module('saasfinal.toolbar', [])
             function updatePositioning() {
                // Check whether the element has been scrolled out of view
                if (placeholder.offset().top < $(window).scrollTop()) {
-                  element.addClass(fixedClass)
+                  element.addClass(fixedClass);
                } else {
-                  element.removeClass(fixedClass)
+                  element.removeClass(fixedClass);
                }
             }
 
@@ -32,15 +33,17 @@ angular.module('saasfinal.toolbar', [])
                placeholder.height(element.height());
             }
 
-            $(window)
-               .scroll(updatePositioning)
-               .resize(updatePlaceholder)
-
-            element.on('$destroy', function() {
+            return function postLink(scope, element, attrs) {
                $(window)
-                  .off('scroll', updatePositioning)
-                  .off('resize', updatePlaceholder)
-            })
+                  .scroll(updatePositioning)
+                  .resize(updatePlaceholder);
+
+               element.on('$destroy', function() {
+                  $(window)
+                     .off('scroll', updatePositioning)
+                     .off('resize', updatePlaceholder);
+               })
+            }
          }
       }
    })

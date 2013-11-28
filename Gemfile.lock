@@ -45,6 +45,7 @@ GEM
     diff-lcs (1.2.5)
     erubis (2.7.0)
     execjs (2.0.2)
+    forgery (0.5.0)
     haml (4.0.4)
       tilt
     hike (1.2.3)
@@ -142,6 +143,7 @@ PLATFORMS
 
 DEPENDENCIES
   debugger
+  forgery
   haml
   jbuilder (~> 1.2)
   jquery-rails

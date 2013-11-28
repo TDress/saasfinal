@@ -10,12 +10,14 @@ gem 'haml'
 gem 'rdoc'
 require 'rdoc/task'
 
+# Used for generating large lots of posts for testing
+gem 'forgery'
+
 # Create rake tasks for rdoc
 # Possilbe tasks:
 # rdoc- Main task for this RDoc task.
 # clobber_rdoc- Delete all the rdoc files. This target is automatically added to the main clobber target.
 # rerdoc- Rebuild the rdoc files from scratch, even if they are not out of date.
-
 
 RDoc::Task.new do |rdoc|
   rdoc.main = "README.rdoc"
