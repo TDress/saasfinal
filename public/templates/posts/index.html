@@ -1,5 +1,5 @@
-<!-- Options navbar.  Needs to stay fixed --->
-<div class="navbar">
+
+<div class="navbar navbar-dynamic-top">
    <div class="navbar-inner">
       <span class="dropdown">
          <button class="btn dropdown-toggle">
@@ -21,7 +21,7 @@
       </span>
       <button type="button" class="btn btn-default navbar-btn" ui-sref="addPost">Add Post</button>
       <form class="navbar-search pull-right">
-         <input type="text" class="search-query" placeholder="Search" ng-model="simpleParams.keywords" />
+         <input type="text" class="search-query" placeholder="Search" ng-click="console.log('!!', simpleParams)" ng-model="simpleParams.keywords" />
       </form>
    </div>
 </div>

@@ -1,5 +1,6 @@
 body {
-	padding-top: 51px;
+	/* For static fixed header */
+	/*padding-top: 51px;*/
 }
 
 .supplementary {
@@ -19,4 +20,18 @@ body {
 #welcome-banner {
 	background-color: #222222;
 	padding: 60px 40px;
+}
+
+.navbar {
+	margin: 0;
+}
+
+.navbar .navbar-inner {
+	border-radius: 0;
+	border-left: none;
+	border-right: none;
+}
+
+.navbar-dynamic-top > .navbar-inner {
+	padding: 0 20px;
 }
