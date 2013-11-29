@@ -1,8 +1,4 @@
-
-function successAndGoHome() {
-		
-	}
-function PostAddCtrl($scope, Post) {
+function PostAddCtrl($scope, Post, $location) {
     $scope.moreInfoCollapsed = true;
     $scope.titleValidate = false;
     $scope.contentValidate = false;
@@ -18,7 +14,7 @@ function PostAddCtrl($scope, Post) {
     t.text     "content"
     t.string   "title"
 	*/
-	$scope.save = function(post) {
+	$scope.save = function(post, $location) {
         // Fields are required
         if(!post.title) {
 			$scope.titleValidate = true;
@@ -50,10 +46,10 @@ function PostAddCtrl($scope, Post) {
                 + currentdate.getSeconds()+"]";
                 
         var newpost = new Post({title:post.title, content:post.content, user_id:user_id, created_on:datetime});
-		newpost.$save(function(response) {
+		newpost.$save(function(response, $location) {
  
             //Redirect us back to the main page
-            $location.path('/');
+            $location.path("/index")
  
         }, function(response) {
  
@@ -61,8 +57,8 @@ function PostAddCtrl($scope, Post) {
             $scope.errors = response.data.errors;
             Logger.log($scope.errors);
         });
-		successAndGoHome();
     }
     
 }
+PostAddCtrl.$inject = ['$scope', 'Post', '$location'];
 

@@ -33,8 +33,13 @@ class PostsController < ApplicationController
   end
   
   def create
-	post = Post.create!(:title=> params["title"], :content=> params["content"], 
-		:created_on=> params["created_on"], :user_id=> params["user_id"])    
-	redirect_to "/#/"
+  
+	if Post.create(:title=> params["title"], :content=> params["content"], 
+					:created_on=> params["created_on"], :user_id=> params["user_id"])    		
+	else
+		flash[:error] = "An error occurred.  Please try again later."
+	end
+	# redirect back to the homepage.
+	redirect_to :action=> 'index'
   end
 end

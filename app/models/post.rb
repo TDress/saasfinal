@@ -5,4 +5,9 @@ class Post < ActiveRecord::Base
   belongs_to :user
   has_many :post_votes 
   has_many :post_comments
+  
+  validates :title, :presence => true
+  validates :user_id, :presence => true
+  validates :content, :presence => true
+  validates :created_on, :presence => true
 end
