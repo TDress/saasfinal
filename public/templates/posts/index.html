@@ -1,3 +1,4 @@
+<!-- Options navbar.  Needs to stay fixed --->
 <div class="navbar">
    <div class="navbar-inner">
       <span class="dropdown">
@@ -18,11 +19,14 @@
             <li ng-repeat="mode in timeModes" ng-click="$parent.timeMode = mode"><a>{{mode.name}}</a></li>
          </ul>
       </span>
+      <button type="button" class="btn btn-default navbar-btn" ui-sref="addPost">Add Post</button>
       <form class="navbar-search pull-right">
          <input type="text" class="search-query" placeholder="Search" ng-model="simpleParams.keywords" />
       </form>
    </div>
 </div>
+
+<!-- Posts --->
 <div class="accordion" close-others="true">
    <div class="accordion-group" ng-repeat="post in posts" ng-controller="PostViewCtrl">
       <div class="accordion-heading">

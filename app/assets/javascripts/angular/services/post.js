@@ -14,6 +14,5 @@ angular.module('saasfinal.post', ['ngResource'])
 
          return Post._query(params);
       }
-
       return Post;
    })

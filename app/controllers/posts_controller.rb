@@ -31,4 +31,10 @@ class PostsController < ApplicationController
       format.json { render :json => @posts.to_json(:include => :user) }
     end
   end
+  
+  def create
+	post = Post.create!(:title=> params["title"], :content=> params["content"], 
+		:created_on=> params["created_on"], :user_id=> params["user_id"])    
+	redirect_to "/#/"
+  end
 end

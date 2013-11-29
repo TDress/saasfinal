@@ -1,0 +1,52 @@
+<div class="row-fluid">
+  <div class="control-group span8 offset2">
+    <div class="jumbotron">
+    <h4>
+      Please enter a title and content for your new post!
+    </h4>
+
+    <div class="accordion" close-others="true">
+      <div class="accordion-group">
+	<div class="accordion-heading">
+	  <div class="accordion-toggle" ng-click="moreInfoCollapsed = !moreInfoCollapsed">
+	    <p><a class="btn btn-primary btn-lg" role="button">What makes a good post?</a></p>
+	  </div>
+	</div>
+	<div class="accordion-heading" collapse="moreInfoCollapsed">
+	  <div class="accordion-inner">
+	    <p>{{moreInfo}}</p>
+	  </div>
+	</div>
+      </div>
+    </div>
+
+
+</div>
+  <form class="form well">  
+   <div class="form-group">
+    <label for="inputPostTitle3" class="col-sm-2 control-label">Post Title</label>
+    <div class="col-sm-10">
+      <input class="form-control span5" id="inputPostTitle3" placeholder="Title" ng-model="post.title">
+    </div>
+    <div class="alert alert-warning" ng-show="titleValidate">You must enter a title for the new post.</div>
+   </div>
+   <div class="form-group">
+
+     <label for="inputPostContent" class="col-sm-2 control-label">Post Content</label>
+       <div class="col-sm-10">
+	  <textarea class="form-control span 10" rows="8" id="inputPostContent" placeholder="Content" 
+	  ng-model="post.content"></textarea>
+	  <div class="alert alert-warning" ng-show="contentValidate">You must enter content for the new post.</div>
+       </div>
+   </div>
+   <div class="form-group">
+     <div class="col-sm-offset-2 col-sm-10">
+	<button type="submit" class="btn btn-default" ng-click="save(post)">Save Post!</button>
+	<strong class="alert alert-warning" ng-show="errorValidate">Woops! Don't forget to fill in the fields before saving.</strong>
+
+     </div>
+   </div>
+  </form>
+</div>
+</div>
+
