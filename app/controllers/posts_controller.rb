@@ -33,13 +33,19 @@ class PostsController < ApplicationController
   end
   
   def create
-  
-	if Post.create(:title=> params["title"], :content=> params["content"], 
-					:created_on=> params["created_on"], :user_id=> params["user_id"])    		
+	@flashnotice = {}
+	@post = Post.new(:title=> params["title"], :content=> params["content"], 
+					:created_on=> params["created_on"], :user_id=> params["user_id"])  
+	if @post.save
+		@flashnotice[:success] = "Post was successfully created."			
+		respond_with @flashnotice do |format|
+			format.json { render :json=>@post.to_json }
+		end
 	else
-		flash[:error] = "An error occurred.  Please try again later."
+		@flashnotice[:error] = "An error occurred.  Please try again later."
+		respond_with @flashnotice do |format|
+			format.json { render :json=>@post.to_json }
+		end
 	end
-	# redirect back to the homepage.
-	redirect_to :action=> 'index'
   end
 end

@@ -3,6 +3,7 @@ function PostAddCtrl($scope, Post, $location) {
     $scope.titleValidate = false;
     $scope.contentValidate = false;
     $scope.errorValidate = false;
+    $scope.jsonData="empty";
     
     $scope.moreInfo =	"The goal of these posts is to impart experiential knowledge to others about computer science as a "+
 						"field of study and a profession.  The wisdom gathered here is intended to capture knowledge and "+
@@ -48,12 +49,13 @@ function PostAddCtrl($scope, Post, $location) {
         var newpost = new Post({title:post.title, content:post.content, user_id:user_id, created_on:datetime});
 		newpost.$save(function(response, $location) {
  
-            //Redirect us back to the main page
-            $location.path("/index")
+            //Redirect back to the main page
+            //$location.path("/index")
  
         }, function(response) {
  
             //Post response objects to the view
+            $scope.jsonData = response;
             $scope.errors = response.data.errors;
             Logger.log($scope.errors);
         });
