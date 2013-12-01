@@ -9,7 +9,11 @@ function secondsAgo(sec) {
    }
 }
 
-function PostIndexCtrl($scope, Post) {
+function PostIndexCtrl($scope, Post, $stateParams) {
+   if($stateParams.addsuccess) {
+		 $scope.message = $stateParams.addsuccess;
+		 $scope.addPostSuccessFlash = true;
+   }
    $scope.sortModes = [
       {
          name: "Most Recent",

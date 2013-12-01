@@ -3,7 +3,6 @@
     <div class="jumbotron">
     <h4>
       Please enter a title and content for your new post!
-      {{jsonData}}
     </h4>
 
     <div class="accordion" close-others="true">
@@ -42,9 +41,9 @@
    </div>
    <div class="form-group">
      <div class="col-sm-offset-2 col-sm-10">
-	<button type="submit" class="btn btn-default" ng-click="save(post)">Save Post!</button>
+	<button type="submit" class="btn btn-default" ng-click="save(post, $state)">Save Post!</button>
 	<strong class="alert alert-warning" ng-show="errorValidate">Woops! Don't forget to fill in the fields before saving.</strong>
-
+	<div class="alert alert-warning" ng-show="modelSaveValidate">There was an error saving to the database.  Please try again later.</div>
      </div>
    </div>
   </form>

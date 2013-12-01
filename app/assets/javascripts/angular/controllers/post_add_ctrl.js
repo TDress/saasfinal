@@ -1,9 +1,10 @@
-function PostAddCtrl($scope, Post, $location) {
+function PostAddCtrl($scope, Post, $state) {
+    var state = $state;
     $scope.moreInfoCollapsed = true;
     $scope.titleValidate = false;
     $scope.contentValidate = false;
     $scope.errorValidate = false;
-    $scope.jsonData="empty";
+    $scope.modelSaveValidate = false;
     
     $scope.moreInfo =	"The goal of these posts is to impart experiential knowledge to others about computer science as a "+
 						"field of study and a profession.  The wisdom gathered here is intended to capture knowledge and "+
@@ -15,7 +16,10 @@ function PostAddCtrl($scope, Post, $location) {
     t.text     "content"
     t.string   "title"
 	*/
-	$scope.save = function(post, $location) {
+	function redirectHome(flash) {
+		state.go('index', {addsuccess: flash});
+	}
+	$scope.save = function(post, $state) {
         // Fields are required
         if(!post.title) {
 			$scope.titleValidate = true;
@@ -47,20 +51,23 @@ function PostAddCtrl($scope, Post, $location) {
                 + currentdate.getSeconds()+"]";
                 
         var newpost = new Post({title:post.title, content:post.content, user_id:user_id, created_on:datetime});
-		newpost.$save(function(response, $location) {
- 
-            //Redirect back to the main page
-            //$location.path("/index")
+		newpost.$save(function(response, $state, $scope) {
+ 			// Saving to the database on the model side was successful.  Redirect and create flash message in post index view.
+ 			if(response.success) {
+	 			redirectHome(response.success);
+			}
+			// Unsuccessful.  Show flash error and do NOT redirect.
+			else {
+				$scope.modelSaveValidate = true;
+			}
  
         }, function(response) {
- 
             //Post response objects to the view
-            $scope.jsonData = response;
             $scope.errors = response.data.errors;
             Logger.log($scope.errors);
         });
     }
     
 }
-PostAddCtrl.$inject = ['$scope', 'Post', '$location'];
+PostAddCtrl.$inject = ['$scope', 'Post', '$state'];
 

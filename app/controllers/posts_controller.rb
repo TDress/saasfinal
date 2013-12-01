@@ -39,12 +39,12 @@ class PostsController < ApplicationController
 	if @post.save
 		@flashnotice[:success] = "Post was successfully created."			
 		respond_with @flashnotice do |format|
-			format.json { render :json=>@post.to_json }
+			format.json { render :json=>@flashnotice.to_json }
 		end
 	else
 		@flashnotice[:error] = "An error occurred.  Please try again later."
 		respond_with @flashnotice do |format|
-			format.json { render :json=>@post.to_json }
+			format.json { render :json=>@flashnotice.to_json }
 		end
 	end
   end
