@@ -73,11 +73,13 @@ class SessionController < ApplicationController
 
   def create
     callback = url_for(controller: 'session', action: 'oauth2_callback')
+    state = URI.encode_www_form_component(cookies[:"XSRF-TOKEN"])
 
-    redirect_to "https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=" +
-                Rails.configuration.secrets['linkedin']['key'] + "&scope=r_basicprofile%20r_emailaddress&state=" +
-                cookies[:"XSRF-TOKEN"] + "&redirect_uri=" +
-                URI.encode_www_form_component(callback)
+    redirect = "https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id="
+    redirect += "#{Rails.configuration.secrets['linkedin']['key']}&scope=r_basicprofile%20r_emailaddress&state="
+    redirect += "#{state}&redirect_uri=#{URI.encode_www_form_component(callback)}"
+
+    redirect_to redirect
   end
 
   def destroy

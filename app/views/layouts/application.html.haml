@@ -17,10 +17,10 @@
 			.navbar-inner
 				.container
 					%a.brand(href="/#/") SaaS Final
-					%button.btn.btn-success.pull-right(ng-if="!loggedIn" ng-click="logIn()")
+					%button.btn.btn-success.pull-right#logIn(ng-if="!loggedIn" ng-click="logIn()")
 						%i.fa.fa-user
 						Log In
-					%button.btn.btn-danger.pull-right(ng-if="loggedIn" ng-click="logOut()")
+					%button.btn.btn-danger.pull-right#logOut(ng-if="loggedIn" ng-click="logOut()")
 						%i.fa.fa-key
 						Log Out
 
