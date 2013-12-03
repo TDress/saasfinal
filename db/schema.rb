@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131120184024) do
+ActiveRecord::Schema.define(version: 20131203042714) do
 
   create_table "post_comments", force: true do |t|
     t.integer "user_id"
@@ -38,12 +38,10 @@ ActiveRecord::Schema.define(version: 20131120184024) do
   end
 
   create_table "users", force: true do |t|
-    t.integer "linkedin_id", limit: 255
     t.boolean "is_admin"
     t.string  "email"
     t.string  "name"
+    t.string  "linkedin_id"
   end
-
-  add_index "users", ["linkedin_id"], name: "index_users_on_linkedin_id", unique: true
 
 end

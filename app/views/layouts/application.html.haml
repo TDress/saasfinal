@@ -12,23 +12,28 @@
 		= javascript_include_tag "application"
 		= csrf_meta_tags
 
-%body(ng-controller="ApplicationCtrl")
-	.navbar.navbar-inverse
-		.navbar-inner
-			.container
-				%a.brand(href="/#/") SaaS Final
-				%button.btn.btn-success.pull-right(ng-click="logIn()")
+	%body(ng-controller="ApplicationCtrl")
+		.navbar.navbar-inverse
+			.navbar-inner
+				.container
+					%a.brand(href="/#/") SaaS Final
+					%button.btn.btn-success.pull-right(ng-if="!loggedIn" ng-click="logIn()")
+						%i.fa.fa-user
+						Log In
+					%button.btn.btn-danger.pull-right(ng-if="loggedIn" ng-click="logOut()")
+						%i.fa.fa-key
+						Log Out
+
+		%div(ng-repeat="message in warnings")
+			.alert.alert-warning {{message}}
+
+		%div(ng-if="!loggedIn" collapse="welcomeBannerDismissed")
+			#welcome-banner
+				%a.pull-right(ng-click="closeWelcomeBanner()") (Close)
+				%h1 Welcome!
+				%p Log in with your LinkedIn account to get started.
+				%button.btn.btn-large.btn-success.pull-right(ng-click="logIn()")
 					%i.fa.fa-user
 					Log In
 
-
-	%div(collapse="welcomeBannerDismissed")
-		#welcome-banner
-			%a.pull-right(ng-click="closeWelcomeBanner()") (Close)
-			%h1 Welcome!
-			%p Log in with your LinkedIn account to get started.
-			%button.btn.btn-large.btn-success.pull-right(ng-click="logIn()")
-				%i.fa.fa-user
-				Log In
-
-	= yield
+		= yield

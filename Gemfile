@@ -15,6 +15,8 @@ gem 'forgery'
 
 gem 'httparty'
 
+gem 'xml-simple'
+
 # Create rake tasks for rdoc
 # Possilbe tasks:
 # rdoc- Main task for this RDoc task.

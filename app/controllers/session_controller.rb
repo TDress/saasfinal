@@ -1,8 +1,18 @@
 class SessionController < ApplicationController
+  require "xmlsimple"
+  layout "dialog"
+
+  #
+  # Exchange an authorization code from LinkedIn for an accessToken and get query user's LinkedIn profile
+  #
+  # ===== Parameters
+  # * +code+ - The authorization code
+  # * +state+ - Must match the state parameter sent to LinkedIn
+  #
   def oauth2_callback
     if params[:state] != cookies[:"XSRF-TOKEN"]
       @event = 'loginFailed'
-      @result = {error: "forbidden", error_description: "XSRF Token Mismatch"}
+      @result = JSON.dump({error: "forbidden", error_description: "XSRF Token Mismatch"})
 
       logger.warn "Authentication Failed: #{@result}"
       return
@@ -10,12 +20,13 @@ class SessionController < ApplicationController
 
     if params.key? :error
       @event = 'loginFailed'
-      @result = {error: params[:error], error_description: params[:error_description]}
+      @result = JSON.dump({error: params[:error], error_description: params[:error_description]})
 
       logger.warn "Authentication Failed: #{@result}"
       return
     end
 
+    # We have a valid request, exchange the auth code
     tokenResponse = HTTParty.post('https://www.linkedin.com/uas/oauth2/accessToken',
                                   body: {
                                       grant_type: "authorization_code",
@@ -28,22 +39,36 @@ class SessionController < ApplicationController
     tokenResponseData = JSON.parse(tokenResponse.body)
     if tokenResponse.code != 200
       @event = 'loginFailed'
-      @result = tokenResponseData
+      @result = JSON.dump(tokenResponseData)
 
       logger.warn "Authentication Failed: #{@result}"
       return
     end
 
-    logger.debug "Token Response: " + tokenResponse.body
-    tokenResponseData = JSON.parse(tokenResponse.body)
     accessToken = tokenResponseData['access_token']
 
-    profileResponse = HTTParty.get("https://api.linkedin.com/v1/people/~:(id,first-name,last-name)?oauth2_access_token=#{accessToken}")
+    # Get user's profile (not just their ID), in case they are a new user
+    profileResponse = HTTParty.get("https://api.linkedin.com/v1/people/~:(id,email-address,first-name,last-name)?oauth2_access_token=#{accessToken}")
+    profileData = XmlSimple.xml_in(profileResponse.body, {keyAttr: 'name', forceArray: false})
+    logger.info "Response: #{profileData}"
 
-    logger.info "Response: " + profileResponse.body
+    logger.debug "*****#{profileData['id']}"
+    user = User.find_by_linkedin_id(profileData['id'])
+    if user.nil?
+      # This is a new user
+      userData = {
+          name: "#{profileData['first-name']} #{profileData['last-name']}",
+          email: profileData['email-address'],
+          linkedin_id: profileData['id']
+      }
+
+      logger.info "Creating a new user: #{userData}"
+      user = User.create(userData)
+    end
 
     @event = 'loginSuccess'
-    @result = tokenResponse.body
+    @result = user.to_json
+    cookies[:userId] = user.id
   end
 
   def create
@@ -53,6 +78,12 @@ class SessionController < ApplicationController
                 Rails.configuration.secrets['linkedin']['key'] + "&scope=r_basicprofile%20r_emailaddress&state=" +
                 cookies[:"XSRF-TOKEN"] + "&redirect_uri=" +
                 URI.encode_www_form_component(callback)
+  end
+
+  def destroy
+    cookies.delete :userId
+
+    redirect_to root_path
   end
 
 end

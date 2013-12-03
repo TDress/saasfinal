@@ -1,5 +1,7 @@
-function ApplicationCtrl($scope, CookieStore) {
+function ApplicationCtrl($rootScope, $scope, CookieStore) {
    $scope.welcomeBannerDismissed = CookieStore.get('welcomeBannerDismissed');
+   $rootScope.loggedIn = CookieStore.get('userId');
+   $rootScope.warnings = $rootScope.warnings || [];
 
    $scope.closeWelcomeBanner = function() {
       $scope.welcomeBannerDismissed = true;
@@ -7,6 +9,22 @@ function ApplicationCtrl($scope, CookieStore) {
    }
 
    $scope.logIn = function() {
-      window.open('/session/create')
+      loginPopup = window.open('/session/create', 'loginPopup', 'width=480,height=640,left=' +
+         ((window.screen.availWidth/2)-240));
+      if (window.focus) {
+         loginPopup.focus();
+      }
    }
+
+   $scope.logOut = function() {
+      window.location = "/session/destroy";
+   }
+
+   $rootScope.$on('loginSuccess', function(event, user) {
+      window.location.reload();
+   })
+
+   $rootScope.$on('loginFailure', function(event, error) {
+      $scope.warnings.push(error.error_description);
+   })
 }
