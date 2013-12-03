@@ -1,0 +1,4 @@
+:javascript
+	var openerScope = window.opener.angular.element(window.opener.document).scope()
+
+	openerScope.$broadcast('#{@event}', #{JSON.dump(@result)})

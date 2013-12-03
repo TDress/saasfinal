@@ -5,4 +5,8 @@ function ApplicationCtrl($scope, CookieStore) {
       $scope.welcomeBannerDismissed = true;
       CookieStore.put('welcomeBannerDismissed', $scope.welcomeBannerDismissed, new Date(9999999999999));
    }
+
+   $scope.logIn = function() {
+      window.open('/session/create')
+   }
 }

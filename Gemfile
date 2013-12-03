@@ -13,6 +13,8 @@ require 'rdoc/task'
 # Used for generating large lots of posts for testing
 gem 'forgery'
 
+gem 'httparty'
+
 # Create rake tasks for rdoc
 # Possilbe tasks:
 # rdoc- Main task for this RDoc task.
