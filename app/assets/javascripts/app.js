@@ -1,4 +1,4 @@
-angular.module('saasfinal', ['ui.router', 'ui.bootstrap', 'ngResource', 'saasfinal.cookies', 'saasfinal.post', 'saasfinal.toolbar'])
+angular.module('saasfinal', ['ui.router', 'ui.bootstrap', 'ngResource', 'saasfinal.cookies', 'saasfinal.post', 'saasfinal.user', 'saasfinal.toolbar'])
    .config(function($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider){
       $urlRouterProvider.otherwise("/");
       $stateProvider.
@@ -11,5 +11,11 @@ angular.module('saasfinal', ['ui.router', 'ui.bootstrap', 'ngResource', 'saasfin
             url: "/add-post",
             templateUrl: "/templates/posts/add-post.html",
             controller: PostAddCtrl
+         }).
+         state('user', {
+            url: "/user/?user_id",
+            templateUrl: "/templates/users/user-profile.html",
+            controller: UserViewCtrl
          });
    })
+   

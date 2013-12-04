@@ -1,0 +1,41 @@
+<div class="jumbotron span8 offset2">
+  <h1>{{user.name}}</h1>
+  <p>Check out posts made by {{user.name}}.</p>
+    <ul class="nav nav-pills">
+      <li class="active"><a href="#">Home</a></li>
+      <li><a href="#">Profile</a></li>
+      <li><a href="#">Messages</a></li>
+    </ul>
+</div>
+
+<div></div>
+<!-- Posts --->
+<div class="accordion" close-others="true">
+   <div class="accordion-group" ng-repeat="post in posts" ng-controller="PostViewCtrl">
+      <div class="accordion-heading">
+         <div class="accordion-toggle" ng-click="postCollapsed = !postCollapsed">
+            <a>{{post.title}}</a> by
+            <button class="supplementary" ui-sref="user({user_id:{{post.user_id}}})">{{post.user.name}} </button>
+            <div class="pull-right">
+               <span class="badge badge-success">
+                  12
+                  <i class="fa fa-thumbs-up"></i>
+               </span>
+               <span class="badge badge-important">
+                  3
+                  <i class="fa fa-thumbs-down"></i>
+               </span>
+               <span class="badge badge-warning">
+                  0
+                  <i class="fa fa-warning"></i>
+               </span>
+            </div>
+         </div>
+      </div>
+      <div class="accordion-heading" collapse="postCollapsed">
+         <div class="accordion-inner">
+            {{post.content}}
+         </div>
+      </div>
+   </div>
+</div>
