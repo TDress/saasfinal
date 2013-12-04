@@ -1,6 +1,8 @@
 angular.module('saasfinal.post', ['ngResource'])
    .factory('Post', function($resource) {
-      var Post = $resource('/posts.json', {}, {});
+      var Post = $resource('/posts.json', {}, {
+			'get_user_posts': {method:'GET', isArray: true}	  
+	  });
 
       // Override default query functionality
       Post._query = Post.query;

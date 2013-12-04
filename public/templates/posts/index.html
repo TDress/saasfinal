@@ -32,10 +32,8 @@
    <div class="accordion-group" ng-repeat="post in posts" ng-controller="PostViewCtrl">
       <div class="accordion-heading">
          <div class="accordion-toggle" ng-click="postCollapsed = !postCollapsed">
-            <a>{{post.title}}</a>
-            <span class="supplementary">
-               by <a href="#/users/{{post.user_id}}">{{post.user.name}}</a>
-            </span>
+            <a>{{post.title}}</a> by
+            <button class="supplementary" ui-sref="user({user_id:{{post.user_id}}})">{{post.user.name}} </button>
             <div class="pull-right">
                <span class="badge badge-success">
                   12
