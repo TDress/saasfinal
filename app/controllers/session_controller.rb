@@ -52,7 +52,6 @@ class SessionController < ApplicationController
     profileData = XmlSimple.xml_in(profileResponse.body, {keyAttr: 'name', forceArray: false})
     logger.info "Response: #{profileData}"
 
-    logger.debug "*****#{profileData['id']}"
     user = User.find_by_linkedin_id(profileData['id'])
     if user.nil?
       # This is a new user

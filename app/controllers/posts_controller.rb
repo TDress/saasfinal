@@ -27,17 +27,25 @@ class PostsController < ApplicationController
       @posts = @posts.where("lower(title) like lower(?)", "%" + params[:keywords] + "%")
     end
 
+    if params.key? :userId
+      @posts = @posts.where("user_id = ?", params[:userId])
+    end
+
+    if params.key? :limit
+      @posts = @posts.limit(params[:limit].to)
+    end
+
     respond_with @posts do |format|
       format.json { render :json => @posts.to_json(:include => :user) }
     end
   end
-  
+
   def create
 	@flashnotice = {}
-	@post = Post.new(:title=> params["title"], :content=> params["content"], 
-					:created_on=> params["created_on"], :user_id=> params["user_id"])  
+	@post = Post.new(:title=> params["title"], :content=> params["content"],
+					:created_on=> params["created_on"], :user_id=> params["user_id"])
 	if @post.save
-		@flashnotice[:success] = "Post was successfully created."			
+		@flashnotice[:success] = "Post was successfully created."
 		respond_with @flashnotice do |format|
 			format.json { render :json=>@flashnotice.to_json }
 		end
@@ -48,7 +56,7 @@ class PostsController < ApplicationController
 		end
 	end
   end
-  
+
   def get_user_posts
 	@posts = Post.includes(:user)
 	@posts = Post.where("user_id = ?", params[:user_id])
@@ -58,7 +66,7 @@ class PostsController < ApplicationController
 	else
 		# Get the recent posts created by the user
 		@posts = @posts.order('created_on' => params.key?(:orderAsc) ? :asc : :desc)
-	
+
 	end
 	logger.debug
 	respond_with @posts do |format|
