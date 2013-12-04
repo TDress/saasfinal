@@ -1,0 +1,8 @@
+:javascript
+	var openerScope = window.opener.angular.element(window.opener.document).scope()
+
+	openerScope.$broadcast('#{@event}', #{@result})
+
+	window.close()
+
+This window should close automatically.

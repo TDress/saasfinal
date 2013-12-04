@@ -27,3 +27,6 @@ vendor/ruby
 /html
 
 .ruby-version
+
+# Exclude secret keys
+/config/secrets.yml

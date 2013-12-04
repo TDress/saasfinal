@@ -26,4 +26,7 @@ Saasfinal::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+
+  # Load development API keys
+  Saasfinal::Application.config.secrets = YAML::load_file("#{Rails.root}/config/secrets.yml")
 end

@@ -13,6 +13,10 @@ require 'rdoc/task'
 # Used for generating large lots of posts for testing
 gem 'forgery'
 
+gem 'httparty'
+
+gem 'xml-simple'
+
 # Create rake tasks for rdoc
 # Possilbe tasks:
 # rdoc- Main task for this RDoc task.
@@ -62,6 +66,14 @@ end
 group :production do
   gem 'pg'
   gem 'rails_12factor'
+end
+
+group :test do
+  gem 'cucumber-rails', :require => false
+  gem "Selenium"
+  gem "selenium-client"
+  gem "selenium-webdriver"
+  gem "database_cleaner"
 end
 
 # Use ActiveModel has_secure_password
