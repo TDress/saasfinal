@@ -3,7 +3,6 @@ Given /^I am on the homepage$/ do
 end
 
 Then /^there should( not)? be a ([A-z]+) called "([^\s]+)"$/ do |neg, tag, id|
-  puts "test #{neg} - #{!neg}"
   assert first("#{tag}##{id}").nil? === !neg.nil?
 end
 
