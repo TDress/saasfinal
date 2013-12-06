@@ -48,6 +48,10 @@ When /^I log in with "([^"]+)" and "([^"]+)"$/ do |username, password|
   assert browser.window_handles.size === 1
 end
 
+Then /^I should see "([^"])+"$/ do |e1|
+	expect(find("body").native.attribute("innerHTML")).to match(/#{e1}/m)
+end
+
 Then /^I should see "([^"]+)" before "([^"])+"$/ do |e1, e2|
 	expect(find("body").native.attribute("innerHTML")).to match(/#{e1}.*#{e2}/m)
 end
@@ -66,10 +70,15 @@ Given /^the following posts have been created:/ do |posts_table|
 	end
 end
 
+When /^(?:|I )press "([^"]*)"$/ do |button|
+# click_button(button)  # the original web_steps.rb version that fails
+  %{I press (button)}   # my revised version that passes
+end
+
 When /^I click the "(.*)" link$/ do |link|
 	click_link(link)
 end
 
-Then /^I should see "([^"])+"$/ do |e|
-	expect(find("body").native.attribute("innerHTML")).to match(/#{e}/m)
+When /^I enter "([^"]*)" in the "([^"]*)" field$/i do |value, fieldname|
+  fill_in find_field("#{fieldname}"), :with=>value
 end

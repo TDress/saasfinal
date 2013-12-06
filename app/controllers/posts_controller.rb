@@ -26,6 +26,16 @@ class PostsController < ApplicationController
     if params.key? :keywords and params[:keywords].length > 0
       @posts = @posts.where("lower(title) like lower(?)", "%" + params[:keywords] + "%")
     end
+	
+	if params.key? :sortUserPostsBy
+		@posts = @posts.where(user_id: params[:user_id])
+
+		if params[:sortUserPostsBy]=='top'
+			@posts = @posts.order('created_on' => params.key?(:orderAsc) ? :desc : :asc)
+		else
+			@posts = @posts.order('created_on' => params.key?(:orderAsc) ? :asc : :desc)
+		end
+	end
 
     respond_with @posts do |format|
       format.json { render :json => @posts.to_json(:include => :user) }
@@ -47,23 +57,6 @@ class PostsController < ApplicationController
 			format.json { render :json=>@flashnotice.to_json }
 		end
 	end
-  end
-  
-  def get_user_posts
-	@posts = Post.includes(:user)
-	@posts = Post.where("user_id = ?", params[:user_id])
-	if params[:sortUserPostsBy]=='top'
-		# Get the top posts created by the user
-		@posts = @posts.order('votes_sum' => params.key?(:orderAsc) ? :asc : :desc)
-	else
-		# Get the recent posts created by the user
-		@posts = @posts.order('created_on' => params.key?(:orderAsc) ? :asc : :desc)
-	
-	end
-	logger.debug
-	respond_with @posts do |format|
-      format.json { render :json => @posts.to_json(:include => :user) }
-    end
   end
 end
 

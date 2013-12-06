@@ -24,9 +24,9 @@
 </div>
   <form class="form well">  
    <div class="form-group">
-    <label for="inputPostTitle3" class="col-sm-2 control-label">Post Title</label>
+    <label for="Title" class="col-sm-2 control-label">Title</label>
     <div class="col-sm-10">
-      <input class="form-control span5" id="inputPostTitle3" placeholder="Title" ng-model="post.title">
+      <input class="form-control span5" id="Title" placeholder="Title" ng-model="post.title">
     </div>
     <div class="alert alert-warning" ng-show="titleValidate">You must enter a title for the new post.</div>
    </div>
@@ -41,7 +41,7 @@
    </div>
    <div class="form-group">
      <div class="col-sm-offset-2 col-sm-10">
-	<button type="submit" class="btn btn-default" ng-click="save(post, $state)">Save Post!</button>
+	<button type="submit" class="btn btn-default" name = "save-post" ng-click="save(post, $state)">Save Post!</button>
 	<strong class="alert alert-warning" ng-show="errorValidate">Woops! Don't forget to fill in the fields before saving.</strong>
 	<div class="alert alert-warning" ng-show="modelSaveValidate">There was an error saving to the database.  Please try again later.</div>
      </div>

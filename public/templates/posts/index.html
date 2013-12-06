@@ -19,7 +19,7 @@
             <li ng-repeat="mode in timeModes" ng-click="$parent.timeMode = mode"><a>{{mode.name}}</a></li>
          </ul>
       </span>
-      <button type="button" class="btn btn-default navbar-btn" ui-sref="addPost">Add Post</button>
+      <button type="button" class="btn btn-default navbar-btn" ui-sref="addPost" name="add-post">Add Post</button>
       <form class="navbar-search pull-right">
          <input type="text" class="search-query" placeholder="Search" ng-click="console.log('!!', simpleParams)" ng-model="simpleParams.keywords" />
       </form>
