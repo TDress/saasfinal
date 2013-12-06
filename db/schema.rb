@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131203042714) do
+ActiveRecord::Schema.define(version: 20131206042958) do
 
   create_table "post_comments", force: true do |t|
     t.integer "user_id"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20131203042714) do
     t.string  "email"
     t.string  "name"
     t.string  "linkedin_id"
+    t.string  "linkedin_url"
   end
 
 end

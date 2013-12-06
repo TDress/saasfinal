@@ -3,7 +3,10 @@
  * are showing as current posts in reverse order. 
  */
 function UserViewCtrl($scope, User, Post, $stateParams) {
-	$scope.user = User.query({user_id: $stateParams.user_id});
+	$scope.user = User.query({user_id: $stateParams.user_id}, function() {
+			$scope.firstname = /(.*)\s/.exec($scope.user.name)[1];
+		});
+	//$scope.firstname = /(.*)\s/.exec($scope.user.name)[1];
 	
 	// Query the Posts model for (sorted) top-rated and recent posts created by this user
 	$scope.top_posts = Post.query({user_id: $stateParams.user_id, sortUserPostsBy: 'top'});

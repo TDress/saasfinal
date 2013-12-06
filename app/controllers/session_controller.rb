@@ -48,7 +48,7 @@ class SessionController < ApplicationController
     accessToken = tokenResponseData['access_token']
 
     # Get user's profile (not just their ID), in case they are a new user
-    profileResponse = HTTParty.get("https://api.linkedin.com/v1/people/~:(id,email-address,first-name,last-name)?oauth2_access_token=#{accessToken}")
+    profileResponse = HTTParty.get("https://api.linkedin.com/v1/people/~:(id,email-address,first-name,last-name,public-profile-url)?oauth2_access_token=#{accessToken}")
     profileData = XmlSimple.xml_in(profileResponse.body, {keyAttr: 'name', forceArray: false})
     logger.info "Response: #{profileData}"
 
@@ -58,9 +58,10 @@ class SessionController < ApplicationController
       userData = {
           name: "#{profileData['first-name']} #{profileData['last-name']}",
           email: profileData['email-address'],
-          linkedin_id: profileData['id']
+          linkedin_id: profileData['id'],
+          linkedin_url: profileData['public-profile-url']
       }
-
+	
       logger.info "Creating a new user: #{userData}"
       user = User.create(userData)
     end

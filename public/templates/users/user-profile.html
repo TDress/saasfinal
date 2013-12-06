@@ -1,6 +1,6 @@
 <div class="span8 offset2">
   <h1>{{user.name}}</h1>
-  <p>Here are the posts made by {{user.name}}.</p>
+  <p>Here are the posts made by {{firstname}}.</p>
   <div class="btn-group">
 	<button class="btn btn-primary {{topPostsButtonActive}}" id="top" ng-click = "userposts = top_posts">Top Rated</button>      
 	<button class="btn btn-primary {{curPostsButtonActive}}" id="cur" ng-click = "userposts = current_posts">Most Recent</button>  
@@ -36,4 +36,13 @@
          </div>
       </div>
    </div>
+</div>
+
+<!-- Side panel with more user info --->
+<div class="jumbotron pull-right span4 offset1">
+  <h3>Achievements</h3>
+  <p>Votes Info, number of total posts, comments, etc</p>	
+  <br>
+  <h3>Linkedin Profile Page</h3>
+  <p><a href="{{user.linkedin_url}}" target="_blank">Check me out!</a></p>	
 </div>
