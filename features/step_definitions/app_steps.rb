@@ -70,8 +70,7 @@ Given /^the following posts have been created:/ do |posts_table|
 end
 
 When /^(?:|I )press "([^"]*)"$/ do |button|
-# click_button(button)  # the original web_steps.rb version that fails
-  %{I press (button)}   # my revised version that passes
+	click_button("#{button}")
 end
 
 When /^I click the "(.*)" link$/ do |link|
@@ -79,5 +78,5 @@ When /^I click the "(.*)" link$/ do |link|
 end
 
 When /^I enter "([^"]*)" in the "([^"]*)" field$/i do |value, fieldname|
-  fill_in find_field("#{fieldname}"), :with=>value
+  fill_in "#{fieldname}", :with => value
 end
