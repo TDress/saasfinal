@@ -1,5 +1,4 @@
 class SessionController < ApplicationController
-  require "xmlsimple"
   layout "dialog"
 
   #
@@ -27,63 +26,45 @@ class SessionController < ApplicationController
     end
 
     # We have a valid request, exchange the auth code
-    tokenResponse = HTTParty.post('https://www.linkedin.com/uas/oauth2/accessToken',
-                                  body: {
-                                      grant_type: "authorization_code",
-                                      code: params[:code],
-                                      redirect_uri: request.original_url.gsub(/\?.*$/i, ''),
-                                      client_id: Rails.application.config.secrets['linkedin']['key'],
-                                      client_secret: Rails.application.config.secrets['linkedin']['secret']
-                                  })
-
-    tokenResponseData = JSON.parse(tokenResponse.body)
-    if tokenResponse.code != 200
+    begin
+      linked_in_user = LinkedIn.access_token(params[:code], request.original_url.gsub(/\?.*$/i, ''))
+    rescue LinkedIn::RequestFailedException => e
       @event = 'loginFailed'
-      @result = JSON.dump(tokenResponseData)
+      @result = e.response
 
-      logger.warn "Authentication Failed: #{@result}"
+      logger.warn "Authentication Failed: #{@e}"
       return
     end
 
-    accessToken = tokenResponseData['access_token']
-
-    # Get user's profile (not just their ID), in case they are a new user
-    profileResponse = HTTParty.get("https://api.linkedin.com/v1/people/~:(id,email-address,first-name,last-name,public-profile-url)?oauth2_access_token=#{accessToken}")
-    profileData = XmlSimple.xml_in(profileResponse.body, {keyAttr: 'name', forceArray: false})
-    logger.info "Response: #{profileData}"
-
-    user = User.find_by_linkedin_id(profileData['id'])
+    user = User.find_by_linkedin_id(linked_in_user.id)
     if user.nil?
       # This is a new user
       userData = {
-          name: "#{profileData['first-name']} #{profileData['last-name']}",
-          email: profileData['email-address'],
-          linkedin_id: profileData['id'],
-          linkedin_url: profileData['public-profile-url']
+          name: "#{linked_in_user.first_name} #{linked_in_user.last_name}",
+          email: linked_in_user.email_address,
+          linkedin_id: linked_in_user.id,
+          linkedin_url: linked_in_user.public_profile_url
       }
-	
+
       logger.info "Creating a new user: #{userData}"
       user = User.create(userData)
     end
 
     @event = 'loginSuccess'
     @result = user.to_json
-    cookies[:userId] = user.id
+    session[:userId] = cookies[:userId] = user.id
   end
 
   def create
     callback = url_for(controller: 'session', action: 'oauth2_callback')
-    state = URI.encode_www_form_component(cookies[:"XSRF-TOKEN"])
+    state = cookies[:"XSRF-TOKEN"]
 
-    redirect = "https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id="
-    redirect += "#{Rails.configuration.secrets['linkedin']['key']}&scope=r_basicprofile%20r_emailaddress&state="
-    redirect += "#{state}&redirect_uri=#{URI.encode_www_form_component(callback)}"
-
-    redirect_to redirect
+    redirect_to LinkedIn.auth_url(callback, state)
   end
 
   def destroy
     cookies.delete :userId
+    session.delete :userId
 
     redirect_to root_path
   end
