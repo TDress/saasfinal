@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131206042958) do
+ActiveRecord::Schema.define(version: 20131208024357) do
 
   create_table "post_comments", force: true do |t|
     t.integer "user_id"
@@ -27,8 +27,10 @@ ActiveRecord::Schema.define(version: 20131206042958) do
   create_table "post_votes", force: true do |t|
     t.integer "user_id"
     t.integer "post_id"
-    t.binary  "value"
+    t.integer "value"
   end
+
+  add_index "post_votes", ["post_id", "user_id"], name: "index_post_votes_on_post_id_and_user_id", unique: true
 
   create_table "posts", force: true do |t|
     t.integer  "user_id"

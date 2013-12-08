@@ -31,23 +31,10 @@
 <div class="accordion" close-others="true">
    <div class="accordion-group" ng-repeat="post in posts" ng-controller="PostViewCtrl">
       <div class="accordion-heading">
-         <div class="accordion-toggle" ng-click="postCollapsed = !postCollapsed">
-            <a>{{post.title}}</a> by
+         <div class="accordion-toggle">
+            <a ng-click="postCollapsed = !postCollapsed">{{post.title}}</a> by
             <button class="supplementary" ui-sref="user({user_id:{{post.user_id}}})">{{post.user.name}} </button>
-            <div class="pull-right">
-               <span class="badge badge-success">
-                  12
-                  <i class="fa fa-thumbs-up"></i>
-               </span>
-               <span class="badge badge-important">
-                  3
-                  <i class="fa fa-thumbs-down"></i>
-               </span>
-               <span class="badge badge-warning">
-                  0
-                  <i class="fa fa-warning"></i>
-               </span>
-            </div>
+            <div class="pull-right" count-votes-for="post"></div>
          </div>
       </div>
       <div class="accordion-heading" collapse="postCollapsed">

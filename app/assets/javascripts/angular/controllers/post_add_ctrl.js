@@ -5,7 +5,7 @@ function PostAddCtrl($scope, Post, $state) {
     $scope.contentValidate = false;
     $scope.errorValidate = false;
     $scope.modelSaveValidate = false;
-    
+
     $scope.moreInfo =	"The goal of these posts is to impart experiential knowledge to others about computer science as a "+
 						"field of study and a profession.  The wisdom gathered here is intended to capture knowledge and "+
 						"understanding that comes from lessons learned, personal stories and experiences, or observations.  "+
@@ -38,19 +38,16 @@ function PostAddCtrl($scope, Post, $state) {
 			$scope.contentValidate = false;
 		    $scope.errorValidate = false;
 		}
-		
+
 		// persist the post
-		// To test, hardcode in the user as John P, user_id = 0
-		var user_id = 0;
-		var currentdate = new Date(); 
 		var datetime = currentdate.getFullYear() + "-"
 				+ (currentdate.getMonth()+1) + "-"
 				+ currentdate.getDate() + " ["
-                + currentdate.getHours() + ":"  
-                + currentdate.getMinutes() + ":" 
+                + currentdate.getHours() + ":"
+                + currentdate.getMinutes() + ":"
                 + currentdate.getSeconds()+"]";
-                
-        var newpost = new Post({title:post.title, content:post.content, user_id:user_id, created_on:datetime});
+
+        var newpost = new Post({title:post.title, content:post.content});
 		newpost.$save(function(response, $state, $scope) {
  			// Saving to the database on the model side was successful.  Redirect and create flash message in post index view.
  			if(response.success) {
@@ -60,14 +57,14 @@ function PostAddCtrl($scope, Post, $state) {
 			else {
 				$scope.modelSaveValidate = true;
 			}
- 
+
         }, function(response) {
             //Post response objects to the view
             $scope.errors = response.data.errors;
             Logger.log($scope.errors);
         });
     }
-    
+
 }
 PostAddCtrl.$inject = ['$scope', 'Post', '$state'];
 
