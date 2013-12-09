@@ -89,7 +89,7 @@ function PostIndexCtrl($scope, Post, $stateParams) {
       // Copy all search parameters into one object to query server
       searchParams = $.extend({
          offset: $scope.posts.length,
-         limit: 10
+         limit: 15
       }, $scope.timeMode.params, $scope.sortMode.params, $scope.simpleParams);
 
       var result = Post.query(searchParams);

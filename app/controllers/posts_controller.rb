@@ -16,6 +16,8 @@ class PostsController < ApplicationController
 
     if params.key? :orderBy
       @posts = @posts.order(params[:orderBy] => params.key?(:orderAsc) ? :asc : :desc)
+    else
+      @posts = @posts.order(:created_on => :desc)
     end
 
     if params.key? :createdAfter
@@ -43,7 +45,7 @@ class PostsController < ApplicationController
 
     # At most 25 posts can be requested
     if params.key? :limit
-      limit = [params[:limit].to_i, 25].max
+      limit = [params[:limit].to_i, 25].min
     else
       limit = 25
     end
