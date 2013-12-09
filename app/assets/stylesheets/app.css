@@ -35,3 +35,7 @@ body {
 .navbar-dynamic-top > .navbar-inner {
 	padding: 0 20px;
 }
+
+.alert-listitem {
+	border-radius: 0;
+}
