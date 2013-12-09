@@ -14,6 +14,7 @@ function PostIndexCtrl($scope, Post, $stateParams) {
 		 $scope.message = $stateParams.addsuccess;
 		 $scope.addPostSuccessFlash = true;
    }
+
    $scope.sortModes = [
       {
          name: "Most Recent",
@@ -76,24 +77,53 @@ function PostIndexCtrl($scope, Post, $stateParams) {
    ];
    $scope.timeMode = $scope.timeModes[0];
 
-   // Search parameters that can be sent as the user inputs them (not sorts and dates)
+   // Search parameters that can be sent without processing (not sorts and dates)
    $scope.simpleParams = {
       keywords: ""
    };
 
-   var refreshPosts = function() {
-      // Copy all search parameters into one object to query server
-      searchParams = $.extend({}, $scope.timeMode.params, $scope.sortMode.params, $scope.simpleParams)
+   // Load more posts and append them to the post list
+   $scope.loadPosts = function() {
+      $scope.stopLoadPosts = true;
 
-      $scope.posts = Post.query(searchParams);
+      // Copy all search parameters into one object to query server
+      searchParams = $.extend({
+         offset: $scope.posts.length,
+         limit: 10
+      }, $scope.timeMode.params, $scope.sortMode.params, $scope.simpleParams);
+
+      var result = Post.query(searchParams);
+      result.$promise.then(function(newPosts, headers) {
+         newPosts.forEach(function(newPost) {
+            $scope.posts.push(newPost);
+         });
+
+         if (newPosts.length < 10) {
+            $scope.stopLoadPosts = true
+            $scope.endMessage = $scope.posts.length ? "No more results." : "No results fount."
+         }
+
+         $scope.stopLoadPosts = false;
+      }, function(httpResponse) {
+         console.error("Error loading posts:", httpResponse);
+         $scope.endMessage = "There was an error loading the next page of posts. Please refresh the page.";
+      });
+   }
+
+   // Clear the post list and reload
+   function reloadPosts(newParams, oldParams) {
+      // Ignore spurious $watch events while loading initial posts.
+      if ($scope.posts && newParams === oldParams) return;
+
+      $scope.posts = [];
+      $scope.stopLoadPosts = false;
+
+      $scope.loadPosts();
    };
 
-   // Load initial posts
-   refreshPosts()
-
-   $scope.$watch('timeMode', refreshPosts)
-   $scope.$watch('simpleParams', ratelimit(refreshPosts), true)
-   $scope.$watch('sortMode', refreshPosts)
+   $scope.$watch('timeMode', reloadPosts)
+   $scope.$watch('simpleParams', ratelimit(reloadPosts), true)
+   $scope.$watch('sortMode', reloadPosts)
 
 
 }

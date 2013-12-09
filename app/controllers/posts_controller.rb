@@ -42,7 +42,11 @@ class PostsController < ApplicationController
     end
 
     if params.key? :limit
-      @posts = @posts.first(params[:limit].to_i)
+      @posts = @posts.limit(params[:limit].to_i)
+    end
+
+    if params.key? :offset
+      @posts = @posts.offset(params[:offset].to_i)
     end
 
     respond_with @posts do |format|

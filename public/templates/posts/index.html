@@ -29,18 +29,24 @@
 
 <!-- Posts --->
 <div class="accordion" close-others="true">
-   <div class="accordion-group" ng-repeat="post in posts" ng-controller="PostViewCtrl">
-      <div class="accordion-heading">
-         <div class="accordion-toggle">
-            <a ng-click="postCollapsed = !postCollapsed">{{post.title}}</a> by
-            <button class="supplementary" ui-sref="user({user_id:{{post.user_id}}})">{{post.user.name}} </button>
-            <div class="pull-right" count-votes-for="post"></div>
+   <div infinite-scroll="loadPosts()" infinite-scroll-disabled="stopLoadPosts" infinite-scroll-distance="1" ng-controller="PostViewCtrl">
+      <div class="accordion-group" ng-repeat="post in posts">
+         <div class="accordion-heading">
+            <div class="accordion-toggle">
+               <a ng-click="postCollapsed = !postCollapsed">{{post.title}}</a> by
+               <button class="supplementary" ui-sref="user({user_id:{{post.user_id}}})">{{post.user.name}} </button>
+               <div class="pull-right" count-votes-for="post"></div>
+            </div>
+         </div>
+         <div class="accordion-heading" collapse="postCollapsed">
+            <div class="accordion-inner">
+               {{post.content}}
+            </div>
          </div>
       </div>
-      <div class="accordion-heading" collapse="postCollapsed">
-         <div class="accordion-inner">
-            {{post.content}}
-         </div>
+      <div class="alert" ng-show="endMessage">
+         <i class="pull-right fa fa-close" ng-click="endMessage = false"></i>
+         {{endMessage}}
       </div>
    </div>
 </div>
