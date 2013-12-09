@@ -36,3 +36,15 @@ end
 default_posts.each do |post|
   Post.create!(post)
 end
+
+# Create some tags
+tags = []
+(0...5).each do
+  tags << Forgery(:lorem_ipsum).words(2, options={random: true})
+end
+
+Post.all.each do |post|
+  post.post_tags.create!({tag: tags.sample})
+  post.post_tags.create!({tag: tags.sample})
+  post.post_tags.create!({tag: tags.sample})
+end
