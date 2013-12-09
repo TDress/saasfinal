@@ -14,7 +14,7 @@ class SessionController < ApplicationController
       @result = JSON.dump({error: "forbidden", error_description: "XSRF Token Mismatch"})
 
       logger.warn "Authentication Failed: #{@result}"
-      return
+      return render status: 403
     end
 
     if params.key? :error
@@ -22,7 +22,7 @@ class SessionController < ApplicationController
       @result = JSON.dump({error: params[:error], error_description: params[:error_description]})
 
       logger.warn "Authentication Failed: #{@result}"
-      return
+      return render status: 403
     end
 
     # We have a valid request, exchange the auth code
@@ -33,7 +33,7 @@ class SessionController < ApplicationController
       @result = e.response
 
       logger.warn "Authentication Failed: #{@e}"
-      return
+      return render status: 403
     end
 
     user = User.find_by_linkedin_id(linked_in_user.id)

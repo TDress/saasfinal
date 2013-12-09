@@ -1,10 +1,8 @@
 require "spec_helper"
 
-require "pp"
-
 describe PostsController do
   before :each do
-    #expect(@controller).to receive(:require_user)
+    # Always request JSON since this controller only handles API requests
     request.env["HTTP_ACCEPT"] = 'application/json'
   end
 
@@ -112,7 +110,7 @@ describe PostsController do
       }
 
       expect(response).to_not be_success
-      expect(response.code).to eq("403")
+      expect(response.status).to eq(403)
 
       posts = Post.where(user_id: 0)
       expect(posts.length).to eq(0)
