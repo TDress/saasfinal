@@ -1,5 +1,21 @@
 angular.module('saasfinal.widgets', ['saasfinal.post'])
    /**
+    * An element that self-destructs after a delay. Useful for status messages.
+    */
+   .directive('flash', function() {
+      return {
+         restrict: 'E',
+         link: function(scope, element, attrs) {
+            console.log("%%%%")
+            window.setTimeout(function(){
+               element.fadeOut(2000, function(){
+                  element.remove();
+               });
+            }, 2000)
+         }
+      }
+   })
+   /**
     * Display a vote counter for a particular post
     */
    .directive('countVotesFor', function(PostVote) {
@@ -9,42 +25,48 @@ angular.module('saasfinal.widgets', ['saasfinal.post'])
             post: "=countVotesFor"
          },
          templateUrl: '/templates/widgets/votecounts.html',
-         link: function(scope, element, attrs) {
-            scope.votes = {}
+         controller: function($scope) {
+            $scope.votes = {}
+            $scope.messages = []
 
             function recalculateVotes() {
-               scope.votes.total = scope.post.post_votes.reduce(function(acc, i) {return acc + i.value}, 0)
-               scope.votes.up = scope.post.post_votes.filter(function(i) {return i.value == 1}).length
-               scope.votes.down = scope.post.post_votes.filter(function(i) {return i.value == -1}).length
+               $scope.votes.total = $scope.post.post_votes.reduce(function(acc, i) {return acc + i.value}, 0)
+               $scope.votes.up = $scope.post.post_votes.filter(function(i) {return i.value == 1}).length
+               $scope.votes.down = $scope.post.post_votes.filter(function(i) {return i.value == -1}).length
             }
 
             function message(text) {
-               scope.message = text;
-
-               if (message) {
-                  window.setTimeout(function(){
-                     message()
-                     scope.$apply();
-                  }, 2000)
-               }
-            }
-
-            scope.vote = function(value) {
-               var vote = new PostVote({post_id: scope.post.id, value: value});
-               return vote.$save(null, function(){
-                  // Remove any previous vote from this user
-                  scope.post.post_votes = scope.post.post_votes.filter(function(oldVote){
-                     return oldVote.user_id != vote.user_id
-                  })
-
-                  scope.post.post_votes.push(vote)
-                  message("Voted!")
-               }, function() {
-                  message("Please try again.")
+               $scope.messages.push({
+                  shortDesc: text,
+                  time: Date.now()
                });
             }
 
-            scope.$watch('post.post_votes', recalculateVotes, true)
+            function error(text, e) {
+               $scope.messages.push({
+                  shortDesc: text,
+                  longDesc: e.data,
+                  time: Date.now()
+               });
+               console.log("Vote error: ", text, e)
+            }
+
+            $scope.vote = function(value) {
+               var vote = new PostVote({post_id: $scope.post.id, value: value});
+               return vote.$save(null, function(){
+                  // Remove any previous vote from this user
+                  $scope.post.post_votes = $scope.post.post_votes.filter(function(oldVote){
+                     return oldVote.user_id != vote.user_id
+                  })
+
+                  $scope.post.post_votes.push(vote)
+                  message("Voted!")
+               }, function(e) {
+                  error("Vote Failed.", e)
+               });
+            }
+
+            $scope.$watch('post.post_votes', recalculateVotes, true)
          }
       }
    })
