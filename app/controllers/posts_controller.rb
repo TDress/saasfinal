@@ -41,9 +41,14 @@ class PostsController < ApplicationController
       @posts = @posts.where(user_id: params[:userId])
     end
 
+    # At most 25 posts can be requested
     if params.key? :limit
-      @posts = @posts.limit(params[:limit].to_i)
+      limit = [params[:limit].to_i, 25].max
+    else
+      limit = 25
     end
+
+    @posts = @posts.limit(limit)
 
     if params.key? :offset
       @posts = @posts.offset(params[:offset].to_i)
