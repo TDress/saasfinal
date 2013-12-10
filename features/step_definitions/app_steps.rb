@@ -69,6 +69,11 @@ Given /^the following posts have been created:/ do |posts_table|
 	end
 end
 
+When /^(?:|I )press the first button with class "([^"]*)"$/ do |buttonclass|
+	button = find("button[class='#{buttonclass}']")
+	button.click
+end
+
 When /^(?:|I )press "([^"]*)"$/ do |button|
 	click_button("#{button}")
 end

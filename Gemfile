@@ -4,10 +4,10 @@ ruby '1.9.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
-
+gem 'capybara'
 gem 'haml'
 
-gem 'rdoc'
+gem 'rdoc', '4.0.1'
 require 'rdoc/task'
 
 # Used for generating large lots of posts for testing
@@ -57,6 +57,7 @@ end
 group :development, :test do
 	gem 'debugger'
 	gem 'rspec-rails'
+	gem "rspec-expectations", "~> 3.0.0.beta1"
 end
 
 group :development do
