@@ -9,7 +9,7 @@ function secondsAgo(sec) {
    }
 }
 
-function PostIndexCtrl($scope, Post, $stateParams) {
+function PostIndexCtrl($scope, $stateParams, Post, PostTag) {
    if($stateParams.addsuccess) {
 		 $scope.message = $stateParams.addsuccess;
 		 $scope.addPostSuccessFlash = true;
@@ -100,7 +100,7 @@ function PostIndexCtrl($scope, Post, $stateParams) {
 
          if (newPosts.length < 10) {
             $scope.stopLoadPosts = true
-            $scope.endMessage = $scope.posts.length ? "No more results." : "No results fount."
+            $scope.endMessage = $scope.posts.length ? "No more results." : "No results found."
          }
 
          $scope.stopLoadPosts = false;
@@ -121,9 +121,19 @@ function PostIndexCtrl($scope, Post, $stateParams) {
       $scope.loadPosts();
    };
 
+   // Get a list of tags containing parital for autocompletion
+   function completeTags() {
+      return $scope.tags = PostTag.query({
+         unique: true,
+         keywords: $scope.simpleParams.keywords
+      })
+   }
+
+   // Keep list of posts up to date
    $scope.$watch('timeMode', reloadPosts)
-   $scope.$watch('simpleParams', ratelimit(reloadPosts), true)
+   $scope.$watch('simpleParams', ratelimit(reloadPosts, 1000), true)
    $scope.$watch('sortMode', reloadPosts)
 
-
+   // Keep autocomplete list up to date
+   $scope.$watch('simpleParams.keywords', ratelimit(completeTags, 300))
 }

@@ -6,7 +6,6 @@ angular.module('saasfinal.widgets', ['saasfinal.post'])
       return {
          restrict: 'E',
          link: function(scope, element, attrs) {
-            console.log("%%%%")
             window.setTimeout(function(){
                element.fadeOut(2000, function(){
                   element.remove();
@@ -62,7 +61,7 @@ angular.module('saasfinal.widgets', ['saasfinal.post'])
                   $scope.post.post_votes.push(vote)
                   message("Voted!")
                }, function(e) {
-                  error("Vote Failed.", e)
+                  error(e.data.error || "Vote Failed.", e)
                });
             }
 

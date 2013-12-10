@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_filter :require_user, :only => :create
-  respond_to :json, :html
+  respond_to :json
 
   #
   # Query posts, optionally including search criteria

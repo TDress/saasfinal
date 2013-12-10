@@ -20,3 +20,7 @@ angular.module('saasfinal.post', ['ngResource'])
       var PostVote = $resource('/votes.json', {}, {});
       return PostVote;
    })
+   .factory('PostTag', function($resource) {
+      var PostTag = $resource('/tags.json', {}, {});
+      return PostTag;
+   })

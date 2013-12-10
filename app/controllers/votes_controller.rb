@@ -6,16 +6,21 @@ class VotesController < ApplicationController
   #
   def create
     if (!params.key? :value) || (!params.key? :post_id)
-      return render :status => :bad_request, :text => "Missing required parameter"
+      return render :status => :bad_request, :json => {error: "Missing required parameter"}
     end
 
     value = params['value'].to_i
     if ![-1, 1].include? value
-      return render :status => :bad_request, :text => "Invalid vote value"
+      return render :status => :bad_request, :json => {error: "Invalid vote value"}
     end
 
     post = Post.find params[:post_id]
     @vote = post.post_votes.find_or_create_by(user_id: session[:userId])
+
+    if @vote.value == value
+      return render :status => 400, :json => {error:"You already voted!"}
+    end
+
     @vote.value = value
     @vote.save
 
