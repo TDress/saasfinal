@@ -39,3 +39,17 @@ body {
 .alert-listitem {
 	border-radius: 0;
 }
+
+.animated-list {
+	-webkit-transition: .3s linear all;
+	-moz-transition: .3s linear all;
+	transition: .3s linear all;
+}
+
+.animated-list.ng-leave {
+	opacity: 1;
+}
+
+.animated-list.ng-leave.ng-leave-active {
+	opacity: 0;
+}
