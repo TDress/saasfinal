@@ -21,7 +21,7 @@
       </span>
       <button type="button" class="btn btn-default navbar-btn" ui-sref="addPost" name="add-post">Add Post</button>
       <form class="navbar-search pull-right">
-         <input type="text" class="search-query" placeholder="Search" ng-click="console.log('!!', simpleParams)" ng-model="simpleParams.keywords" />
+         <input type="text" class="search-query" placeholder="Search" ng-model="simpleParams.keywords" typeahead="tag.tag for tag in tags | filter: $viewValue | limitTo: 8" />
       </form>
    </div>
 </div>
@@ -29,31 +29,31 @@
 
 <!-- Posts --->
 <div class="accordion" close-others="true">
-   <div class="accordion-group" ng-repeat="post in posts" ng-controller="PostViewCtrl">
-      <div class="accordion-heading">
-         <div class="accordion-toggle" ng-click="postCollapsed = !postCollapsed">
-            <a>{{post.title}}</a> by
-            <button class="supplementary" id="{{post.user.name}}" ui-sref="user({user_id:{{post.user_id}}})">{{post.user.name}}</button>
-            <div class="pull-right">
-               <span class="badge badge-success">
-                  12
-                  <i class="fa fa-thumbs-up"></i>
-               </span>
-               <span class="badge badge-important">
-                  3
-                  <i class="fa fa-thumbs-down"></i>
-               </span>
-               <span class="badge badge-warning">
-                  0
-                  <i class="fa fa-warning"></i>
-               </span>
+   <div infinite-scroll="loadPosts()" infinite-scroll-disabled="stopLoadPosts" infinite-scroll-distance="1" ng-controller="PostViewCtrl">
+      <div class="accordion-group" ng-repeat="post in posts">
+         <div class="accordion-heading">
+            <div class="accordion-toggle">
+               <a ng-click="postCollapsed = !postCollapsed">{{post.title}}</a>
+               <span class="supplementary" id="{{post.user.name}}">by <a ui-sref="user({user_id:{{post.user_id}}})">{{post.user.name}}</a></span>
+               <div class="pull-right" count-votes-for="post"></div>
+            </div>
+         </div>
+         <div class="accordion-heading" collapse="postCollapsed">
+            <div class="accordion-inner">
+               {{post.content}}
+               <div>
+                  <i class="fa fa-tag"></i>
+                  <span class="label post-tag" ng-repeat="tag in post.post_tags">{{tag.tag}}</span>
+               </div>
             </div>
          </div>
       </div>
-      <div class="accordion-heading" collapse="postCollapsed">
-         <div class="accordion-inner">
-            {{post.content}}
-         </div>
+      <div class="alert alert-info alert-listitem" ng-show="endMessage">
+         {{endMessage}}
+      </div>
+      <div class="alert alert-error alert-listitem" ng-show="endError">
+         <i class="pull-right fa fa-close" ng-click="endMessage = false"></i>
+         {{endError}}
       </div>
    </div>
 </div>

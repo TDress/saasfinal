@@ -4,12 +4,24 @@ body {
 }
 
 .supplementary {
-	color: #999999;
+	color: #888888;
 	font-size: 10pt;
 }
 
 .supplementary a {
 	color: inherit;
+}
+
+button.supplementary {
+	background: none;
+	border: none;
+	margin: 0;
+	padding: 0;
+	display: inline;
+}
+
+button.supplementary:hover {
+	text-decoration: underline;
 }
 
 .supplementary a:hover, .supplementary a:visited {
@@ -34,4 +46,65 @@ body {
 
 .navbar-dynamic-top > .navbar-inner {
 	padding: 0 20px;
+}
+
+.alert-listitem {
+	border-radius: 0;
+}
+
+.label.post-tag {
+	margin-right: 5px;
+}
+
+.animated-list {
+	-webkit-transition: .3s linear all;
+	-moz-transition: .3s linear all;
+	transition: .3s linear all;
+}
+
+.animated-list.ng-leave {
+	opacity: 1;
+}
+
+.animated-list.ng-leave.ng-leave-active {
+	opacity: 0;
+}
+
+.badge.counter {
+	min-width: 18px;
+	text-align: center;
+}
+
+.badge.score-1 {
+	background-color: #69972e;
+}
+
+.badge.score-0 {
+	background-color: #d2e6b8;
+}
+
+.badge.score--1 {
+	background-color: #bd4247;
+}
+
+.badge.badge-negative-hover,.badge.badge-positive-hover {
+	-webkit-transition: .3s linear all;
+	-moz-transition: .3s linear all;
+	transition: .3s linear all;
+	background: none;
+	color: #777777;
+	text-shadow: none;
+}
+
+.badge.badge-negative-hover:hover,.badge.badge-positive-hover:hover {
+	color: white;
+	text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
+}
+
+.badge.badge-negative-hover:hover {
+	background-color: #69972e;
+}
+
+.badge.badge-positive-hover:hover {
+	background-color: #bd4247;
 }

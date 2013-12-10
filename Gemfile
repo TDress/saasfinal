@@ -15,8 +15,6 @@ gem 'forgery'
 
 gem 'httparty'
 
-gem 'xml-simple'
-
 # Create rake tasks for rdoc
 # Possilbe tasks:
 # rdoc- Main task for this RDoc task.
@@ -58,6 +56,7 @@ group :development, :test do
 	gem 'debugger'
 	gem 'rspec-rails'
 	gem "rspec-expectations", "~> 3.0.0.beta1"
+	gem 'factory_girl_rails'
 end
 
 group :development do

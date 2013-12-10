@@ -1,4 +1,4 @@
-angular.module('saasfinal', ['ui.router', 'ui.bootstrap', 'ngResource', 'saasfinal.cookies', 'saasfinal.post', 'saasfinal.user', 'saasfinal.toolbar'])
+angular.module('saasfinal', ['ui.router', 'ui.bootstrap', 'ngAnimate', 'ngResource', 'infinite-scroll', 'saasfinal.cookies', 'saasfinal.post', 'saasfinal.user', 'saasfinal.widgets'])
    .config(function($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider){
       $urlRouterProvider.otherwise("/");
       $stateProvider.
@@ -18,4 +18,4 @@ angular.module('saasfinal', ['ui.router', 'ui.bootstrap', 'ngResource', 'saasfin
             controller: UserViewCtrl
          });
    })
-   
+

@@ -1,5 +1,5 @@
 angular.module('saasfinal.post', ['ngResource'])
-   .factory('Post', function($resource) {
+   .factory('Post', function($resource, PostVote) {
       var Post = $resource('/posts.json', {}, {});
 
       // Override default query functionality
@@ -15,4 +15,12 @@ angular.module('saasfinal.post', ['ngResource'])
          return Post._query(params);
       }
       return Post;
+   })
+   .factory('PostVote', function($resource) {
+      var PostVote = $resource('/votes.json', {}, {});
+      return PostVote;
+   })
+   .factory('PostTag', function($resource) {
+      var PostTag = $resource('/tags.json', {}, {});
+      return PostTag;
    })

@@ -9,11 +9,12 @@ function secondsAgo(sec) {
    }
 }
 
-function PostIndexCtrl($scope, Post, $stateParams) {
+function PostIndexCtrl($scope, $stateParams, Post, PostTag) {
    if($stateParams.addsuccess) {
 		 $scope.message = $stateParams.addsuccess;
 		 $scope.addPostSuccessFlash = true;
    }
+
    $scope.sortModes = [
       {
          name: "Most Recent",
@@ -76,24 +77,63 @@ function PostIndexCtrl($scope, Post, $stateParams) {
    ];
    $scope.timeMode = $scope.timeModes[0];
 
-   // Search parameters that can be sent as the user inputs them (not sorts and dates)
+   // Search parameters that can be sent without processing (not sorts and dates)
    $scope.simpleParams = {
       keywords: ""
    };
 
-   var refreshPosts = function() {
-      // Copy all search parameters into one object to query server
-      searchParams = $.extend({}, $scope.timeMode.params, $scope.sortMode.params, $scope.simpleParams)
+   // Load more posts and append them to the post list
+   $scope.loadPosts = function() {
+      $scope.stopLoadPosts = true;
 
-      $scope.posts = Post.query(searchParams);
+      // Copy all search parameters into one object to query server
+      searchParams = $.extend({
+         offset: $scope.posts.length,
+         limit: 15
+      }, $scope.timeMode.params, $scope.sortMode.params, $scope.simpleParams);
+
+      var result = Post.query(searchParams);
+      result.$promise.then(function(newPosts, headers) {
+         newPosts.forEach(function(newPost) {
+            $scope.posts.push(newPost);
+         });
+
+         if (newPosts.length < 10) {
+            $scope.stopLoadPosts = true
+            $scope.endMessage = $scope.posts.length ? "No more results." : "No results found."
+         }
+
+         $scope.stopLoadPosts = false;
+      }, function(httpResponse) {
+         console.error("Error loading posts:", httpResponse);
+         $scope.endError = "There was an error loading the posts. Please refresh the page.";
+      });
+   }
+
+   // Clear the post list and reload
+   function reloadPosts(newParams, oldParams) {
+      // Ignore spurious $watch events while loading initial posts.
+      if ($scope.posts && newParams === oldParams) return;
+
+      $scope.posts = [];
+      $scope.stopLoadPosts = false;
+
+      $scope.loadPosts();
    };
 
-   // Load initial posts
-   refreshPosts()
+   // Get a list of tags containing parital for autocompletion
+   function completeTags() {
+      return $scope.tags = PostTag.query({
+         unique: true,
+         keywords: $scope.simpleParams.keywords
+      })
+   }
 
-   $scope.$watch('timeMode', refreshPosts)
-   $scope.$watch('simpleParams', ratelimit(refreshPosts), true)
-   $scope.$watch('sortMode', refreshPosts)
+   // Keep list of posts up to date
+   $scope.$watch('timeMode', reloadPosts)
+   $scope.$watch('simpleParams', ratelimit(reloadPosts, 1000), true)
+   $scope.$watch('sortMode', reloadPosts)
 
-
+   // Keep autocomplete list up to date
+   $scope.$watch('simpleParams.keywords', ratelimit(completeTags, 300))
 }
