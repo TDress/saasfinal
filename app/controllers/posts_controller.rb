@@ -12,7 +12,7 @@ class PostsController < ApplicationController
   # * +keywords+ - String of search keywords
   #
   def index
-    @posts = Post.includes(:user).includes(:post_votes)
+    @posts = Post.includes(:post_votes, :post_tags, :user)
 
     if params.key? :orderBy
       @posts = @posts.order(params[:orderBy] => params.key?(:orderAsc) ? :asc : :desc)
@@ -57,7 +57,7 @@ class PostsController < ApplicationController
     end
 
     respond_with @posts do |format|
-      format.json { render :json => @posts.to_json(:include => [:user, :post_votes]) }
+      format.json { render :json => @posts.to_json(:include => [:user, :post_votes, :post_tags]) }
     end
   end
 

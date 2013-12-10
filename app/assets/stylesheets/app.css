@@ -40,6 +40,10 @@ body {
 	border-radius: 0;
 }
 
+.label.post-tag {
+	margin-right: 5px;
+}
+
 .animated-list {
 	-webkit-transition: .3s linear all;
 	-moz-transition: .3s linear all;

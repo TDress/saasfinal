@@ -41,6 +41,10 @@
          <div class="accordion-heading" collapse="postCollapsed">
             <div class="accordion-inner">
                {{post.content}}
+               <div>
+                  <i class="fa fa-tag"></i>
+                  <span class="label post-tag" ng-repeat="tag in post.post_tags">{{tag.tag}}</span>
+               </div>
             </div>
          </div>
       </div>

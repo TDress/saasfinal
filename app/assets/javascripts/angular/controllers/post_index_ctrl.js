@@ -106,7 +106,7 @@ function PostIndexCtrl($scope, $stateParams, Post, PostTag) {
          $scope.stopLoadPosts = false;
       }, function(httpResponse) {
          console.error("Error loading posts:", httpResponse);
-         $scope.endError = "There was an error loading the next page of posts. Please refresh the page.";
+         $scope.endError = "There was an error loading the posts. Please refresh the page.";
       });
    }
 
