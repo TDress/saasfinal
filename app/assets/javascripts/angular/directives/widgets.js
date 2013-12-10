@@ -32,6 +32,7 @@ angular.module('saasfinal.widgets', ['saasfinal.post'])
                $scope.votes.total = $scope.post.post_votes.reduce(function(acc, i) {return acc + i.value}, 0)
                $scope.votes.up = $scope.post.post_votes.filter(function(i) {return i.value == 1}).length
                $scope.votes.down = $scope.post.post_votes.filter(function(i) {return i.value == -1}).length
+               $scope.votes.normalized = Math.max(-1, Math.min(1, $scope.votes.total))
             }
 
             function message(text) {
