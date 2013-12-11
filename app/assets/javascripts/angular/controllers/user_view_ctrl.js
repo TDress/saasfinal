@@ -4,7 +4,7 @@
  */
 function UserViewCtrl($scope, User, Post, $stateParams) {
 	$scope.user = User.query({user_id: $stateParams.user_id}, function() {
-			$scope.firstname = /(.*)\s/.exec($scope.user.name)[1];
+		$scope.firstname = /(.*)\s/.exec($scope.user.name)[1];
 		});
 	//$scope.firstname = /(.*)\s/.exec($scope.user.name)[1];
 	

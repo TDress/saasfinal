@@ -54,7 +54,7 @@ end
 
 group :development, :test do
 	gem 'debugger'
-	gem 'rspec-rails'
+	gem 'rspec-rails', '~> 3.0.0.beta'
 	gem "rspec-expectations", "~> 3.0.0.beta1"
 	gem 'factory_girl_rails'
 end

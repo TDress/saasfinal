@@ -40,9 +40,7 @@ describe PostsController do
       get :index, {orderBy: :created_on, orderAsc: true}
 
       expect(response).to be_success
-
       posts = JSON.parse(response.body)
-
       expect(posts.length).to eq(10)
 
       last_created_on = DateTime.parse posts.shift["created_on"]
