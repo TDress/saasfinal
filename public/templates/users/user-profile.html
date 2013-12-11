@@ -10,30 +10,30 @@
 <div></div>
 <!-- Posts --->
 <div class="accordion span8 offset2" close-others="true">
-   <div class="accordion-group" ng-repeat="post in userposts" ng-controller="PostViewCtrl">
-      <div class="accordion-heading">
-         <div class="accordion-toggle" ng-click="postCollapsed = !postCollapsed">
-            <a>{{post.title}}</a>
-            <div class="pull-right">
-               <span class="badge badge-success">
-                  12
-                  <i class="fa fa-thumbs-up"></i>
-               </span>
-               <span class="badge badge-important">
-                  3
-                  <i class="fa fa-thumbs-down"></i>
-               </span>
-               <span class="badge badge-warning">
-                  0
-                  <i class="fa fa-warning"></i>
-               </span>
+   <div infinite-scroll="loadPosts()" infinite-scroll-disabled="stopLoadPosts" infinite-scroll-distance="1" ng-controller="PostViewCtrl">
+      <div class="accordion-group" ng-repeat="post in userposts">
+         <div class="accordion-heading">
+            <div class="accordion-toggle">
+               <a ng-click="postCollapsed = !postCollapsed">{{post.title}}</a>
+               <div class="pull-right" count-votes-for="post"></div>
+            </div>
+         </div>
+         <div class="accordion-heading" collapse="postCollapsed">
+            <div class="accordion-inner">
+               {{post.content}}
+               <div>
+                  <i class="fa fa-tag"></i>
+                  <span class="label post-tag" ng-repeat="tag in post.post_tags">{{tag.tag}}</span>
+               </div>
             </div>
          </div>
       </div>
-      <div class="accordion-heading" collapse="postCollapsed">
-         <div class="accordion-inner">
-            {{post.content}}
-         </div>
+      <div class="alert alert-info alert-listitem" ng-show="endMessage">
+         {{endMessage}}
+      </div>
+      <div class="alert alert-error alert-listitem" ng-show="endError">
+         <i class="pull-right fa fa-close" ng-click="endMessage = false"></i>
+         {{endError}}
       </div>
    </div>
 </div>

@@ -59,7 +59,7 @@ function PostAddCtrl($scope, Post, $state) {
 			}
 
         }, function(response) {
-            //Post response objects to the view
+            // Post response objects to the view
             $scope.errors = response.data.errors;
             Logger.log($scope.errors);
         });
