@@ -79,7 +79,7 @@ When /^(?:|I )press "([^"]*)"$/ do |button|
 end
 
 When /^I click the "(.*)" link$/ do |link|
-	click_link(link)
+	click_link(first(link))
 end
 
 When /^I enter "([^"]*)" in the "([^"]*)" field$/i do |value, fieldname|

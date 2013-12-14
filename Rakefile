@@ -4,3 +4,11 @@
 require File.expand_path('../config/application', __FILE__)
 
 Saasfinal::Application.load_tasks
+
+require 'rubygems'
+require 'cucumber'
+require 'cucumber/rake/task'
+
+Cucumber::Rake::Task.new(:features) do |t|
+  t.cucumber_opts = "features --format pretty"
+end

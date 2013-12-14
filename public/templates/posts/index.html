@@ -34,7 +34,7 @@
          <div class="accordion-heading">
             <div class="accordion-toggle">
                <a ng-click="postCollapsed = !postCollapsed">{{post.title}}</a>
-               <span class="supplementary" id="{{post.user.name}}">by <a ui-sref="user({user_id:{{post.user_id}}})">{{post.user.name}}</a></span>
+               <span class="supplementary">by <a ui-sref="user({user_id:{{post.user_id}}})">{{post.user.name}}</a></span>
                <div class="pull-right" count-votes-for="post"></div>
             </div>
          </div>
