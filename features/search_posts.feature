@@ -1,7 +1,7 @@
 Feature: View posts list on the home page, and expand posts for more detail.
-	As a knowledge seeked
+	As a knowledge seeker
 	So that I can find knowlege that is personally relavant
-	I want to view and search a list of posts
+	I want to search for posts and filter out posts based on the search
 
 	Background:
 		Given the following users have been created:
