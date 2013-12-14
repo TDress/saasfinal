@@ -1,7 +1,7 @@
 module LinkedIn
   include HTTParty
   base_uri "https://api.linkedin.com"
-  debug_output $stderr
+  #debug_output $stderr
 
   #
   # Generate a URL for redirection to LinkedIn's authentication page
