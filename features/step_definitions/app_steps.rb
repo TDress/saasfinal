@@ -51,6 +51,13 @@ Then /^I should see "([^"])+"$/ do |e1|
 	expect(find("body").native.attribute("innerHTML")).to match(/#{e1}/m)
 end
 
+Then /^I should not see "([^"])+"$/ do |elems|
+	posts = elems.split(', ')
+	posts.each do |post|
+		!expect(find("body").native.attribute("innerHTML")).to match(/#{post}/m)
+	end
+end
+
 Then /^I should see "([^"]+)" before "([^"])+"$/ do |e1, e2|
 	expect(find("body").native.attribute("innerHTML")).to match(/#{e1}.*#{e2}/m)
 end
@@ -72,6 +79,10 @@ end
 When /^(?:|I )press the first button with class "([^"]*)"$/ do |buttonclass|
 	button = find("button[class='#{buttonclass}']")
 	button.click
+end
+
+When /^I wait "(.*)" seconds$/ do |link|
+	Capybara.default_wait_time = 5
 end
 
 When /^(?:|I )press "([^"]*)"$/ do |button|
