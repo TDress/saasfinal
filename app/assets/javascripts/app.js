@@ -18,4 +18,3 @@ angular.module('saasfinal', ['ui.router', 'ui.bootstrap', 'ngAnimate', 'ngResour
             controller: UserViewCtrl
          });
    })
-
