@@ -62,20 +62,20 @@ class PostsController < ApplicationController
   end
 
   def create
-	@flashnotice = {}
-	@post = Post.new(:title=> params["title"], :content=> params["content"],
-					:created_on=> Time.now, :user_id=> session[:userId])
-	if @post.save
-		@flashnotice[:success] = "Post was successfully created."
-		respond_with @flashnotice do |format|
-			format.json { render :json=>@flashnotice.to_json }
-		end
-	else
-		@flashnotice[:error] = "An error occurred.  Please try again later."
-		respond_with @flashnotice do |format|
-			format.json { render :json=>@flashnotice.to_json }
-		end
-	end
+    @flashnotice = {}
+    @post = Post.new(:title => params["title"], :content => params["content"],
+                     :created_on => Time.now, :user_id => session[:userId])
+    if @post.save
+      @flashnotice[:success] = "Post was successfully created."
+      respond_with @flashnotice do |format|
+        format.json { render :json => @flashnotice.to_json }
+      end
+    else
+      @flashnotice[:error] = "An error occurred.  Please try again later."
+      respond_with @flashnotice do |format|
+        format.json { render :json => @flashnotice.to_json }
+      end
+    end
   end
 end
 

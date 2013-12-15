@@ -1,0 +1,20 @@
+<div>
+   <i class="fa fa-comment"></i>
+   <a ng-click="commentsExpanded = true">
+      {{comments.length}} Comment{{comments.length == 1 ? '' : 's'}}
+   </a>
+</div>
+<div class="comments-inner" ng-show="commentsExpanded" class="animate-unfold">
+   <div class="comment-inner" ng-repeat="comment in comments">
+      <img class="profile-pic-comment" ng-src="{{comment.user.profile_picture_url}}" />
+      <div class="comment-content">
+         <a ui-sref="user({user_id:{{comment.user_id}}})">{{comment.user.name}}</a>
+         <b ng-if="comment.user.id == post.user.id"> (OP)</b>
+         <span class="date">at {{comment.created_on | date}}</span>
+         <div class="comment-body">{{comment.content}}</div>
+      </div>
+   </div>
+   <div ng-if="!comments || !comments.length">There aren't any comments yet. Be the first!</div>
+   <textarea placeholder="Add a comment..." rows="2" ng-model="newComment" />
+   <button ng-click="addComment(newComment)" class="btn btn-success">Comment</button>
+</div>

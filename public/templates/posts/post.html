@@ -1,0 +1,20 @@
+<div class="accordion-group" ng-controller="PostViewCtrl">
+   <div class="accordion-heading">
+      <div class="accordion-toggle">
+         <a ng-click="toggleCollapsed()">{{post.title}}</a>
+         <span class="supplementary">by <a ui-sref="user({user_id:{{post.user_id}}})">{{post.user.name}}</a></span>
+         <scoreboard class="pull-right" post="post"></scoreboard>
+      </div>
+   </div>
+   <div class="accordion-heading" collapse="postCollapsed">
+      <div class="accordion-inner">
+         {{post.content}}
+         <div>
+            <i class="fa fa-tag"></i>
+            <span class="label post-tag" ng-repeat="tag in post.post_tags">{{tag.tag}}</span>
+            <i class="fa fa-plus"></i>
+         </div>
+         <comments post="post" load-event="postExpanded"></comments>
+      </div>
+   </div>
+</div>

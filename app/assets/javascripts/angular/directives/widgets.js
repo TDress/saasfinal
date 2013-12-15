@@ -17,11 +17,11 @@ angular.module('saasfinal.widgets', ['saasfinal.post'])
    /**
     * Display a vote counter for a particular post
     */
-   .directive('countVotesFor', function(PostVote) {
+   .directive('scoreboard', function(PostVote) {
       return {
-         restrict: 'A',
+         restrict: 'E',
          scope: {
-            post: "=countVotesFor"
+            post: "="
          },
          templateUrl: '/templates/widgets/votecounts.html',
          controller: function($scope) {
@@ -62,7 +62,7 @@ angular.module('saasfinal.widgets', ['saasfinal.post'])
                   $scope.post.post_votes.push(vote)
                   message("Voted!")
                }, function(e) {
-                  error(e.data.error || "Vote Failed.", e)
+                  error(e.data.error || e.data || "Vote Failed.", e)
                });
             }
 
@@ -114,6 +114,53 @@ angular.module('saasfinal.widgets', ['saasfinal.post'])
                      .off('scroll', updatePositioning)
                      .off('resize', updatePlaceholder);
                })
+            }
+         }
+      }
+   })
+   .directive('post', function() {
+      return {
+         restrict: 'E',
+         scope: false,
+         templateUrl: '/templates/posts/post.html'
+      }
+   /**
+    * Display the comment thread for a particular post.
+    */
+   })
+   .directive('comments', function(PostComment) {
+      return {
+         restrict: 'E',
+         scope: {
+            post: '=post',
+            event: '@loadEvent'
+         },
+         templateUrl: '/templates/posts/comments.html',
+         link: function(scope, element, attrs) {
+            function loadComments() {
+               scope.comments = PostComment.query({
+                  post_id: scope.post.id
+               });
+            }
+
+            scope.addComment = function() {
+               var comment = new PostComment({content: scope.newComment, post_id: scope.post.id});
+               scope.newComment = ''
+
+               return comment.$save(function(e) {
+                  scope.comments.push(comment)
+               })
+            }
+
+            if (attrs.loadEvent) {
+               // Delay loading the comments until the event fires
+               var off = scope.$on(attrs.loadEvent, function() {
+                  off();
+                  loadComments();
+               })
+            } else {
+               // Load comments immediately
+               loadComments();
             }
          }
       }

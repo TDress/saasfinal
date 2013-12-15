@@ -1,6 +1,6 @@
 class SessionController < ApplicationController
   layout "dialog"
-
+  require "pp"
   #
   # Exchange an authorization code from LinkedIn for an accessToken and get query user's LinkedIn profile
   #
@@ -43,7 +43,8 @@ class SessionController < ApplicationController
           name: "#{linked_in_user.first_name} #{linked_in_user.last_name}",
           email: linked_in_user.email_address,
           linkedin_id: linked_in_user.id,
-          linkedin_url: linked_in_user.public_profile_url
+          linkedin_url: linked_in_user.public_profile_url,
+          profile_picture_url: linked_in_user.picture_url
       }
 
       logger.info "Creating a new user: #{userData}"

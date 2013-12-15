@@ -12,7 +12,21 @@ class ApplicationController < ActionController::Base
 
   def require_user
     if !session.key? :userId
-      render :status => 403, :text => "You must log in to complete this action"
+      return render :status => :forbidden, :json => {error: "Please log in to complete this action."}
+    end
+  end
+
+  #
+  # Provide support for before_filters such as require_param_name that send HTTP 400 when 'name' is missing
+  #
+  def method_missing(method, *args, &block)
+    param = method.to_s[/^require_param_([0-z_]+)$/, 1]
+    if !param.nil?
+      if !params.key? param.to_sym
+        return render :status => :bad_request, :json => {error: "Required parameter '#{param}' not specified"}
+      end
+    else
+      raise NoMethodError, "no such method #{method} for #{self}"
     end
   end
 
