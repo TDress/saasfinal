@@ -1,4 +1,4 @@
-# Note to Instructor
+# Note to Instructor, From Thomas Dressler and Austin Brown
 
 ### Deviations from Original Proposal
 * We did not implement a "knowedge base" that only includes highly rated posts.  All posts are inlcuded in results from searching, filtering and sorting.  We made this decision because it seemed unnecessary without first doing usability testing or gathering user feedback.
