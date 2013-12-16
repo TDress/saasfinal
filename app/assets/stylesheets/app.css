@@ -56,20 +56,6 @@ button.supplementary:hover {
 	margin-right: 5px;
 }
 
-.animated-list {
-	-webkit-transition: .3s linear all;
-	-moz-transition: .3s linear all;
-	transition: .3s linear all;
-}
-
-.animated-list.ng-leave {
-	opacity: 1;
-}
-
-.animated-list.ng-leave.ng-leave-active {
-	opacity: 0;
-}
-
 .badge.counter {
 	min-width: 18px;
 	text-align: center;
@@ -107,4 +93,42 @@ button.supplementary:hover {
 
 .badge.badge-positive-hover:hover {
 	background-color: #bd4247;
+}
+
+.comments-inner {
+	display: block;
+	background-color: #dddddd;
+	border-radius: 5px;
+	padding: 10px;
+	max-width: 600px;
+}
+
+.comments-inner textarea {
+	width: 450px;
+	margin: 10px;
+}
+
+.comment-inner {
+	margin-left: 10px;
+	margin-bottom: 10px;
+}
+
+.comment-content {
+	margin-left: 5px;
+	display: inline-block;
+}
+
+.comment-content > .date {
+	font-size: 8pt;
+}
+
+img.profile-pic-comment {
+	vertical-align: top;
+	border-radius: 3px;
+	width: 45px;
+	height: 45px;
+}
+
+.modal-body {
+	overflow: visible;
 }

@@ -24,3 +24,8 @@ angular.module('saasfinal.post', ['ngResource'])
       var PostTag = $resource('/tags.json', {}, {});
       return PostTag;
    })
+   .factory('PostComment', function($resource) {
+      var PostComment = $resource('/comments.json', {}, {});
+      return PostComment;
+   })
+

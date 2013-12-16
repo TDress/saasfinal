@@ -1,6 +1,5 @@
 class TagsController < ApplicationController
-  before_filter :require_user, :only => :create
-  respond_to :json
+  before_filter :require_user, :require_param_post_id, :require_param_tag, :only => :create
 
   #
   # Query tag information
@@ -18,13 +17,21 @@ class TagsController < ApplicationController
       @tags = @tags.where("lower(tag) like lower(?)", "%#{params[:keywords]}%")
     end
 
-    respond_with @tags
+    render json: @tags
   end
 
   #
   # Add a tag to a specific post
   #
   def create
+    post = Post.find(params[:post_id]).post_tags
 
+    @tag = post.new({tag: params[:tag]})
+
+    if @tag.save
+      render json: @tag
+    else
+      render json: {error: "Failed to save tag."}
+    end
   end
 end

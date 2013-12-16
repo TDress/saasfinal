@@ -11,18 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131208024357) do
+ActiveRecord::Schema.define(version: 20131215225612) do
 
   create_table "post_comments", force: true do |t|
-    t.integer "user_id"
-    t.integer "post_id"
-    t.text    "content"
+    t.integer  "user_id"
+    t.integer  "post_id"
+    t.text     "content"
+    t.datetime "created_on"
   end
+
+  add_index "post_comments", ["post_id"], name: "index_post_comments_on_post_id"
 
   create_table "post_tags", force: true do |t|
     t.integer "post_id"
     t.string  "tag"
   end
+
+  add_index "post_tags", ["post_id", "tag"], name: "index_post_tags_on_post_id_and_tag", unique: true
 
   create_table "post_votes", force: true do |t|
     t.integer "user_id"
@@ -45,6 +50,7 @@ ActiveRecord::Schema.define(version: 20131208024357) do
     t.string  "name"
     t.string  "linkedin_id"
     t.string  "linkedin_url"
+    t.string  "profile_picture_url", default: "/assets/no-image.png"
   end
 
 end

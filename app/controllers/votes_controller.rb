@@ -1,14 +1,11 @@
 class VotesController < ApplicationController
-  before_filter :require_user, :only => :create
+  before_filter :require_user, :require_param_value, :only => :create
+  before_filter :require_param_post_id
 
   #
   # Create a vote for the current user, or replace an existing one if the user has already voted
   #
   def create
-    if (!params.key? :value) || (!params.key? :post_id)
-      return render :status => :bad_request, :json => {error: "Missing required parameter"}
-    end
-
     value = params['value'].to_i
     if ![-1, 0, 1].include? value
       return render :status => :bad_request, :json => {error: "Invalid vote value"}

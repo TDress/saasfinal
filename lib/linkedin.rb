@@ -1,7 +1,6 @@
 module LinkedIn
   include HTTParty
   base_uri "https://api.linkedin.com"
-  #debug_output $stderr
 
   #
   # Generate a URL for redirection to LinkedIn's authentication page
@@ -43,7 +42,6 @@ module LinkedIn
   class LinkedInUser
     include HTTParty
     base_uri "https://api.linkedin.com"
-    debug_output $stderr
 
     def initialize(accessToken)
       @accessToken = accessToken
@@ -54,9 +52,9 @@ module LinkedIn
     #
     def profile
       if !defined? @profile
-        request = get("/v1/people/~:(id,email-address,first-name,last-name,public-profile-url)")
+        request = get("/v1/people/~:(id,email-address,first-name,last-name,public-profile-url,picture-url)")
 
-        @profile = request.parsed_response
+        @profile = request.parsed_response['person']
       end
 
       return @profile
@@ -66,9 +64,7 @@ module LinkedIn
     # Get some property of the user's profile
     #
     def method_missing(name, *args, &block)
-      name = name.to_s.gsub(/_/, "-")
-
-      return profile[name]
+      return profile[name.to_s]
     end
 
     def get(path, body={}, params={})

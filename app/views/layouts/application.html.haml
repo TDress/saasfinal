@@ -18,10 +18,10 @@
 			.navbar-inner
 				.container
 					%a.brand(href="/#/") Wisdom CS
-					%button.btn.btn-success.pull-right#logIn(ng-if="!loggedIn" ng-click="logIn()")
+					%button.btn.btn-success.pull-right#logIn(ng-if="!Session.loggedIn" ng-click="Session.logIn()")
 						%i.fa.fa-user
 						Log In
-					%button.btn.btn-danger.pull-right#logOut(ng-if="loggedIn" ng-click="logOut()")
+					%button.btn.btn-danger.pull-right#logOut(ng-if="Session.loggedIn" ng-click="Session.logOut()")
 						%i.fa.fa-key
 						Log Out
 

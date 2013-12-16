@@ -1,0 +1,18 @@
+<div class="modal-header">
+   <h3>Add Tags</h3>
+</div>
+<div class="modal-body">
+   <div class="alert" ng-if="errorMessage">{{errorMessage}}</div>
+   <p>
+      <i class="fa fa-tag"></i>
+      <span class="label post-tag" ng-repeat="tag in post.post_tags">{{tag.tag}}</span>
+   </p>
+   <p>
+      <input ng-model="newTag.tag" typeahead="tag.tag for tag in tags | filter: $viewValue | limitTo: 8" placeholder="Start typing a tag..." />
+      <a class="btn btn-success" ng-click="addTag()">Add</a>
+   </p>
+</div>
+<div class="modal-footer">
+   <a href="#" class="btn" ng-click="$dismiss()">Cancel</a>
+   <a href="#" class="btn btn-primary" ng-click="$close()">Finished</a>
+</div>

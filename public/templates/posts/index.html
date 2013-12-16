@@ -29,25 +29,8 @@
 
 <!-- Posts --->
 <div class="accordion" close-others="true">
-   <div infinite-scroll="loadPosts()" infinite-scroll-disabled="stopLoadPosts" infinite-scroll-distance="1" ng-controller="PostViewCtrl">
-      <div class="accordion-group" ng-repeat="post in posts">
-         <div class="accordion-heading">
-            <div class="accordion-toggle">
-               <a ng-click="postCollapsed = !postCollapsed">{{post.title}}</a>
-               <span class="supplementary">by <a ui-sref="user({user_id:{{post.user_id}}})">{{post.user.name}}</a></span>
-               <div class="pull-right" count-votes-for="post"></div>
-            </div>
-         </div>
-         <div class="accordion-heading" collapse="postCollapsed">
-            <div class="accordion-inner">
-               {{post.content}}
-               <div>
-                  <i class="fa fa-tag"></i>
-                  <span class="label post-tag" ng-repeat="tag in post.post_tags">{{tag.tag}}</span>
-               </div>
-            </div>
-         </div>
-      </div>
+   <div infinite-scroll="loadPosts()" infinite-scroll-disabled="stopLoadPosts" infinite-scroll-distance="1">
+      <post ng-repeat="post in posts"></post>
       <div class="alert alert-info alert-listitem" ng-show="endMessage">
          {{endMessage}}
       </div>

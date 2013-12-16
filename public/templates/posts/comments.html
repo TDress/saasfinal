@@ -1,0 +1,26 @@
+<div>
+   <i class="fa fa-comment"></i>
+   <a ng-click="commentsExpanded = true">
+      {{comments.length}} Comment{{comments.length == 1 ? '' : 's'}}
+   </a>
+</div>
+<div class="comments-inner" ng-show="commentsExpanded" class="animate-unfold">
+   <div class="comment-inner" ng-repeat="comment in comments">
+      <img class="profile-pic-comment" ng-src="{{comment.user.profile_picture_url}}" />
+      <div class="comment-content">
+         <a ui-sref="user({user_id:{{comment.user_id}}})">{{comment.user.name}}</a>
+         <b ng-if="comment.user.id == post.user.id"> (OP)</b>
+         <span class="date">{{comment.created_on | date:'short'}}</span>
+         <div class="comment-body">{{comment.content}}</div>
+      </div>
+   </div>
+   <div ng-if="!comments || !comments.length" class="alert alert-info">There aren't any comments yet. Be the first!</div>
+   <div class="alert alert-info" ng-if="!Session.loggedIn">
+      Please <a ng-click="Session.logIn()">Log In</a> to leave a comment
+   </div>
+   <div>
+      <div class="alert" ng-if="errorMessage">{{errorMessage}}</div>
+      <textarea placeholder="Add a comment..." rows="2" ng-model="newComment" disabled="!Session.loggedIn"></textarea>
+      <button ng-click="Session.loggedIn && addComment(newComment)" class="btn btn-success {{Session.loggedIn ? '' : 'disabled'}}">Comment</button>
+   </div>
+</div>

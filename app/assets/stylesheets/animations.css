@@ -1,0 +1,27 @@
+.animate-fade {
+	-webkit-transition: .3s linear all;
+	-moz-transition: .3s linear all;
+	transition: .3s linear all;
+}
+
+.animate-fade.ng-leave {
+	opacity: 1;
+}
+
+.animate-fade.ng-leave.ng-leave-active {
+	opacity: 0;
+}
+
+.animate-unfold {
+	-webkit-transition: .5s linear all;
+	-moz-transition: .5s linear all;
+	transition: .5s linear all;
+}
+
+.animate-unfold.ng-enter {
+	height: 0;
+}
+
+.animate-unfold.ng-enter.ng-enter-active {
+	height: auto;
+}
