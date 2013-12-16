@@ -124,7 +124,6 @@ function PostIndexCtrl($scope, $stateParams, Post, PostTag) {
    // Get a list of tags containing parital for autocompletion
    function completeTags() {
       return $scope.tags = PostTag.query({
-         unique: true,
          keywords: $scope.simpleParams.keywords
       })
    }

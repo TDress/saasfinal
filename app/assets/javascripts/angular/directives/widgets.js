@@ -122,13 +122,14 @@ angular.module('saasfinal.widgets', ['saasfinal.post'])
       return {
          restrict: 'E',
          scope: false,
-         templateUrl: '/templates/posts/post.html'
+         templateUrl: '/templates/posts/post.html',
+         controller: PostViewCtrl
       }
    /**
     * Display the comment thread for a particular post.
     */
    })
-   .directive('comments', function(PostComment) {
+   .directive('comments', function(PostComment, Session) {
       return {
          restrict: 'E',
          scope: {
@@ -137,6 +138,9 @@ angular.module('saasfinal.widgets', ['saasfinal.post'])
          },
          templateUrl: '/templates/posts/comments.html',
          link: function(scope, element, attrs) {
+            scope.Session = Session;
+            scope.newComment = '';
+
             function loadComments() {
                scope.comments = PostComment.query({
                   post_id: scope.post.id
@@ -149,6 +153,9 @@ angular.module('saasfinal.widgets', ['saasfinal.post'])
 
                return comment.$save(function(e) {
                   scope.comments.push(comment)
+                  scope.errorMessage = false
+               }, function(e) {
+                  scope.errorMessage = e.data.error || "Failed to post comment. Please try again later."
                })
             }
 

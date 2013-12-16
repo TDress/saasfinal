@@ -50,12 +50,15 @@ end
 
 # Create some tags
 tags = []
-(0...5).each do
+(0...15).each do
   tags << Forgery(:lorem_ipsum).words(2, options={random: true})
 end
 
+i = 0
 Post.all.each do |post|
-  post.post_tags.create!({tag: tags.sample})
-  post.post_tags.create!({tag: tags.sample})
-  post.post_tags.create!({tag: tags.sample})
+  # Give each post random tags
+  (0..3).each do
+    post.post_tags.create({tag: tags[i]})
+    i = (i + 1) % tags.length
+  end
 end

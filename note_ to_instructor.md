@@ -8,4 +8,4 @@
 * [AngularUI Router](https://github.com/angular-ui/ui-router) for creating 'state' properties around views and nested views.
 * [Bootstrap](http://getbootstrap.com/) for styling and effects.
 * [Selenium WebDriver](http://www.seleniumhq.org/) for automating browser during testing.
-* OAuth login with LinkedIN.  You will find much of the logic for this in app/controllers/session_controller.rb
+* OAuth login with LinkedIn. You will find much of the logic for this in app/controllers/session_controller.rb. If the user has a profile image on LinkedIn, this will be imported automatically.

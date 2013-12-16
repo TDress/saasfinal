@@ -103,6 +103,11 @@ button.supplementary:hover {
 	max-width: 600px;
 }
 
+.comments-inner textarea {
+	width: 450px;
+	margin: 10px;
+}
+
 .comment-inner {
 	margin-left: 10px;
 	margin-bottom: 10px;
@@ -122,4 +127,8 @@ img.profile-pic-comment {
 	border-radius: 3px;
 	width: 45px;
 	height: 45px;
+}
+
+.modal-body {
+	overflow: visible;
 }

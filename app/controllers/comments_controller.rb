@@ -20,6 +20,10 @@ class CommentsController < ApplicationController
   # Add a comment to a specific post
   #
   def create
+    if params[:content].length == 0
+      return render status: :bad_request, json: {error: "Comment cannot be empty."}
+    end
+
     post = Post.find(params[:post_id])
 
     @comment = post.post_comments.new(user_id: session[:userId], content: params[:content], created_on: Time.now)
