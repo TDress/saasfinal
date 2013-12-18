@@ -40,13 +40,6 @@ function PostAddCtrl($scope, Post, $state) {
 		}
 
 		// persist the post
-		var datetime = currentdate.getFullYear() + "-"
-				+ (currentdate.getMonth()+1) + "-"
-				+ currentdate.getDate() + " ["
-                + currentdate.getHours() + ":"
-                + currentdate.getMinutes() + ":"
-                + currentdate.getSeconds()+"]";
-
         var newpost = new Post({title:post.title, content:post.content});
 		newpost.$save(function(response, $state, $scope) {
  			// Saving to the database on the model side was successful.  Redirect and create flash message in post index view.
