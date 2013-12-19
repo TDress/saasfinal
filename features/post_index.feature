@@ -1,5 +1,5 @@
 Feature: View posts list on the home page, and expand posts for more detail.
-	As a knowledge seeked
+	As a knowledge seeker
 	So that I can find knowlege that is personally relavant
 	I want to view and search a list of posts
 

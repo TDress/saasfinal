@@ -20,7 +20,7 @@
    </div>
    <div>
       <div class="alert" ng-if="errorMessage">{{errorMessage}}</div>
-      <textarea placeholder="Add a comment..." rows="2" ng-model="newComment" disabled="!Session.loggedIn"></textarea>
+      <textarea placeholder="Add a comment..." rows="2" ng-model="newComment" ng-disabled="!Session.loggedIn"></textarea>
       <button ng-click="Session.loggedIn && addComment(newComment)" class="btn btn-success {{Session.loggedIn ? '' : 'disabled'}}">Comment</button>
    </div>
 </div>

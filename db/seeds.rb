@@ -3,7 +3,6 @@ default_users = []
 # Generage 8 random users
 (0..7).each do |i|
   default_users << {
-      id: i,
       linkedin_id: i<<50,
       is_admin: 0,
       name: Forgery(:name).full_name,
@@ -11,8 +10,8 @@ default_users = []
   }
 end
 
-default_users.each do |user|
-  User.create!(user)
+default_users.each do |userData|
+  user = User.create!(userData)
 end
 
 # Generate 10 random posts for each user
@@ -20,15 +19,15 @@ default_posts = []
 default_comments = []
 
 (0..10).each do |i|
-  (0..7).each do |j|
+  User.all.each do |user|
     post = Post.create!({
-        user_id: j,
+        user_id: user.id,
         title: Forgery(:lorem_ipsum).words(5, options={
             random: true
-        }),
+        }).titleize,
         content: Forgery(:lorem_ipsum).words(100, options={
             random: true
-        }),
+        }).capitalize,
         created_on: Time.now - rand(2400.hours)
     })
 
@@ -51,7 +50,7 @@ end
 # Create some tags
 tags = []
 (0...15).each do
-  tags << Forgery(:lorem_ipsum).words(2, options={random: true})
+  tags << Forgery(:lorem_ipsum).words(2, options={random: true}).titleize
 end
 
 i = 0

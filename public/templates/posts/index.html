@@ -19,7 +19,7 @@
             <li ng-repeat="mode in timeModes" ng-click="$parent.timeMode = mode"><a>{{mode.name}}</a></li>
          </ul>
       </span>
-      <button type="button" class="btn btn-default navbar-btn" ui-sref="addPost" name="add-post">Add Post</button>
+      <button type="button" class="btn btn-default navbar-btn" ui-sref="addPost" name="add-post" title="{{Session.loggedIn ? '' : 'Please log in with your LinkedIn account to start posting.'}}" ng-disabled="!Session.loggedIn">Add Post</button>
       <form class="navbar-search pull-right">
          <input type="text" class="search-query" placeholder="Search" ng-model="simpleParams.keywords" typeahead="tag.tag for tag in tags | filter: $viewValue | limitTo: 8" />
       </form>

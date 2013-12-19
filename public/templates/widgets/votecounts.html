@@ -1,11 +1,11 @@
 <span ng-repeat="message in messages">
    <flash tooltip="{{message.longDesc}}">{{message.shortDesc}}</flash>
 </span>
-<span class="badge badge-positive-hover counter" ng-click="vote(1)">
+<span class="badge badge-positive-hover counter" ng-click="vote(1)" name="upvote">
    {{votes.up}}
    <i class="fa fa-thumbs-up"></i>
 </span>
-<span class="badge badge-negative-hover counter" ng-click="vote(-1)">
+<span class="badge badge-negative-hover counter" ng-click="vote(-1)" name="downvote">
    {{votes.down}}
    <i class="fa fa-thumbs-down"></i>
 </span>

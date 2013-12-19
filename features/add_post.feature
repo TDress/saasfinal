@@ -5,11 +5,12 @@ Feature: Add a new post
 
 	Background:
 		Given I am on the homepage
-		
+
 	@javascript
 	Scenario: Add a new post, save it, and view it on the homepage
+		Given I log in with "jdoe@alumino.us" and "cr4zyP4zzwurd"
 		When I press "Add Post"
-		And I enter "New" in the "Title" field
+		And I enter "New-Test-Post" in the "Title" field
 		And I enter "New" in the "inputPostContent" field
 		And I press "Save Post!"
-		Then I should see "New"
+		Then I should see "New-Test-Post"

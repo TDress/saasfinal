@@ -9,7 +9,9 @@ function secondsAgo(sec) {
    }
 }
 
-function PostIndexCtrl($scope, $stateParams, Post, PostTag) {
+function PostIndexCtrl($scope, $stateParams, Post, PostTag, Session) {
+   $scope.Session = Session;
+
    if($stateParams.addsuccess) {
 		 $scope.message = $stateParams.addsuccess;
 		 $scope.addPostSuccessFlash = true;
