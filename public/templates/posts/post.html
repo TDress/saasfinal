@@ -1,7 +1,7 @@
 <div class="accordion-group" id="post-{{post.id}}">
    <div class="accordion-heading">
       <div class="accordion-toggle">
-         <a ng-click="toggleCollapsed()">{{post.title}}</a>
+         <a ng-click="toggleCollapsed()" name="openpost">{{post.title}}</a>
          <span class="supplementary">by <a ui-sref="user({user_id:{{post.user_id}}})">{{post.user.name}}</a></span>
          <scoreboard class="pull-right" post="post"></scoreboard>
       </div>

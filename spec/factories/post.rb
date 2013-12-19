@@ -1,20 +1,18 @@
 FactoryGirl.define do
-  sequence :title do |n|
-    "Amazing Title #{n}"
-  end
-
-  sequence :content do |n|
-    "This is amazing content #{n}. Lorem ipsum dolor sit amet."
-  end
-
-  sequence :created_on do |n|
-    DateTime.ordinal(2013, (n%364)+1)
-  end
-
   factory :post do
     title
     content
     created_on
     user
+
+    factory :post_with_comments do
+      ignore do
+        comments_count 2
+      end
+
+      after(:create) do |post, evaluator|
+        FactoryGirl.create_list(:post_comment, evaluator.comments_count, post: post, user: create(:user))
+      end
+    end
   end
 end

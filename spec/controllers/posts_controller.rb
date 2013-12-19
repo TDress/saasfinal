@@ -4,6 +4,7 @@ describe PostsController do
   before :each do
     # Always request JSON since this controller only handles API requests
     request.env["HTTP_ACCEPT"] = 'application/json'
+    Post.all.each {|post| post.destroy}
   end
 
   describe "GET #index" do

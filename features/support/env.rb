@@ -61,3 +61,4 @@ Capybara.register_driver :selenium_chrome do |app|
 end
 
 Capybara.javascript_driver = :selenium_chrome
+Capybara.default_wait_time = 5

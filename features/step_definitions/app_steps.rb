@@ -10,6 +10,11 @@ When /^I click "([^\s]+)"$/ do |id|
   click_button(id)
 end
 
+When /^(?:|I )click the [A-z]+ named "([^"]*)" within "([^"]*)"$/ do |name, parent|
+  item = find(:xpath, "//*[@id='#{parent}']//*[@name='#{name}']")
+  item.click
+end
+
 When /^I try to log in but deny permission/ do
   step "I click \"logIn\""
 
@@ -70,7 +75,6 @@ end
 
 Given /^the following posts have been created:/ do |posts_table|
 	posts_table.hashes.each do |post|
-		post[:user] = User.find_by_id(post[:user])
 		post[:created_on] = DateTime.strptime(post[:created_on], '%Y-%m-%d')
 		Post.create!(post)
 	end
@@ -79,10 +83,6 @@ end
 When /^(?:|I )press the first button with class "([^"]*)"$/ do |buttonclass|
 	button = find("button[class='#{buttonclass}']")
 	button.click
-end
-
-When /^I wait "(.*)" seconds$/ do |link|
-	Capybara.default_wait_time = 5
 end
 
 When /^(?:|I )press "([^"]*)"$/ do |button|

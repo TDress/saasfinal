@@ -1,5 +1,5 @@
 require "spec_helper"
-require "pp"
+
 describe SessionController do
   before :each do
      # Use a fake XSRF token that we can test against
@@ -43,11 +43,11 @@ describe SessionController do
 
       fake_user = LinkedIn::LinkedInUser.new(fake_code)
       fake_user.instance_variable_set(:@profile, {
-          'first-name' => 'First',
-          'last-name' => 'Last',
-          'email-address' => 'email@internet.com',
+          'first_name' => 'First',
+          'last_name' => 'Last',
+          'email_address' => 'email@internet.com',
           'id' => fake_linkedin_id,
-          'public-profile-url' => fake_url
+          'public_profile_url' => fake_url
       })
 
       expect(LinkedIn).to receive(:access_token)
