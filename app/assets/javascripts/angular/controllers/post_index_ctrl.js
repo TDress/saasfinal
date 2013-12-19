@@ -29,12 +29,6 @@ function PostIndexCtrl($scope, $stateParams, Post, PostTag, Session) {
          params: {
             orderBy: 'vote_sum'
          }
-      },
-      {
-         name: "Most Discussed",
-         params: {
-            orderBy: 'comments_total'
-         }
       }
    ];
    $scope.sortMode = $scope.sortModes[0];
