@@ -8,8 +8,8 @@ function UserViewCtrl($scope, User, Post, $stateParams) {
 	});
 	
 	// Query the Posts model for (sorted) top-rated and recent posts created by this user
-	$scope.top_posts = Post.query({user_id: $stateParams.user_id, sortUserPostsBy: 'top'});
-	$scope.current_posts = Post.query({user_id: $stateParams.user_id, sortUserPostsBy: 'recent'});
+	$scope.top_posts = Post.query({user_id: $stateParams.user_id, sortUserPostsBy: 'vote_sum'});
+	$scope.current_posts = Post.query({user_id: $stateParams.user_id, sortUserPostsBy: 'created_on'});
 	
 	
 	// Default to top posts

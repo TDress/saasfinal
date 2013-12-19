@@ -25,7 +25,7 @@ function PostIndexCtrl($scope, $stateParams, Post, PostTag) {
       {
          name: "Highest Rated",
          params: {
-            orderBy: 'votes_sum'
+            orderBy: 'vote_sum'
          }
       },
       {

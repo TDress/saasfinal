@@ -23,10 +23,11 @@ class VotesController < ApplicationController
       }
     else
       @vote = post.post_votes.find_or_create_by(user_id: session[:userId])
-
+	  
       if @vote.value == value
         return render :status => 400, :json => {error:"You already voted!"}
       end
+	  Post.update(params[:post_id], :vote_sum => post.vote_sum + value)	
 
       @vote.value = value
       @vote.save

@@ -31,12 +31,7 @@ class PostsController < ApplicationController
 
     if params.key? :sortUserPostsBy
       @posts = @posts.where(user_id: params[:user_id])
-
-      if params[:sortUserPostsBy]=='top'
-        @posts = @posts.order('created_on' => params.key?(:orderAsc) ? :desc : :asc)
-      else
-        @posts = @posts.order('created_on' => params.key?(:orderAsc) ? :asc : :desc)
-      end
+      @posts = @posts.order(params[:sortUserPostsBy] => :desc)
     end
 
     if params.key? :userId
