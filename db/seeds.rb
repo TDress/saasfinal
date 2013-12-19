@@ -33,7 +33,7 @@ default_comments = []
     })
 
     post.post_comments.create!({
-        user_id: j,
+        user_id: user.id,
         content: "This is my comment!",
         created_on: Time.now
     })
