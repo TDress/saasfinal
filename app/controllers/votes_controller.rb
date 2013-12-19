@@ -17,7 +17,7 @@ class VotesController < ApplicationController
       post.post_votes.find_by_user_id(session[:userId]).destroy
 
       # Report that the vote has been removed
-      render :json => {
+      @vote = {
           value: 0,
           user_id: session[:userId]
       }
@@ -28,13 +28,17 @@ class VotesController < ApplicationController
         return render :status => 400, :json => {error:"You already voted!"}
       end
 
-	    post.vote_sum = post.vote_sum + value
+	    post.vote_sum = post.post_votes.sum(:value)
       post.save
 
       @vote.value = value
       @vote.save
-
-      render :json => @vote
     end
+
+    post.vote_sum = post.post_votes.sum(:value)
+    post.save
+
+    render :json => @vote
+
   end
 end
