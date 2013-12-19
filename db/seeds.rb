@@ -6,7 +6,8 @@ default_users = []
       linkedin_id: i<<50,
       is_admin: 0,
       name: Forgery(:name).full_name,
-      email: Forgery(:internet).email_address
+      email: Forgery(:internet).email_address,
+      profile_picture_url: '/assets/no-image.png'
   }
 end
 
